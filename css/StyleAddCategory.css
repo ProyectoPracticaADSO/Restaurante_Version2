@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: auto; /* Ajusta el ancho automáticamente */
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 2.5rem;
+    font-size: 24px;
+    color: #333;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.create-btn {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    width: auto; /* Ancho automático para que se ajuste al contenido */
+    margin-top: 20px; /* Margen superior para separar del contenido */
+    margin-bottom: 0; /* Sin margen inferior para ajustar al contenedor */
+}
+
+.create-btn:hover {
+    background-color: #d3d3d3;
+    color: #000000;
+    transform: scale(1.05);
+}
+
+.back-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
+
+.back-icon:hover {
+    color: #000000;
+}
+
+button {
+    display: inline-block;
+    margin: 0;
+}

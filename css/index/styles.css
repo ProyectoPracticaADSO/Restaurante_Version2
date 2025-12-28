@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  
+  /*font-family: Arial, sans-serif;
+  background-image: url("css/index/img/Hamburguesa.jpg")
+  no-repeat center center fixed;*/
+  /*background: url("css/index/img/Hamburguesa.jpg")
+  no-repeat center center fixed;*/
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+
+    }
+
+
+
+.main-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  flex-grow: 1; 
+  width: 100%;
+  margin-top: 70px; 
+  gap: 20px;
+}
+
+
+.btn {
+  
+  border: 0.5px solid rgb(236, 253, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  width: 250px; 
+  background: linear-gradient(
+    to bottom,
+    #f1c40f,
+    #f39c12
+    
+  ); 
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 30px; 
+  gap: 30px; 
+}
+
+
+.btn i {
+  margin-right: 10px;
+  font-size: 1.5em;
+}
+
+
+.btn:hover {
+  background: linear-gradient(to bottom, #f39c12, #e67e22);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.elemento {
+  background-image: url("img/Hamburguesa.jpg") no-repeat center center fixed;
+  background-repeat: no-repeat; 
+  background-size: contain;
+  
+}

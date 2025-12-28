@@ -1,0 +1,85 @@
+body {
+    background-color: #f0f0f0;
+    dstify-content: center;012222
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+     background: url("https://cdn.glitch.global/fc6de9c3-3b09-4138-abd9-3523a30daef9/Copia%20de%20Presentaci%C3%B3n%20Plan%20de%20Negocio%20Restaurante%20Profesional%20Amarillo%20(1).png?v=1745980992131")
+}
+
+.container-css {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 400px;
+    text-align: center;
+}
+
+.back-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #000;
+    text-decoration: none;
+}
+
+.back-icon:hover {
+    color: #555;
+}
+
+h1 {
+    margin: 1rem;
+}
+
+.order-form {
+    background-color: #e0e0e0;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button-container  button{
+    width: 100%;
+    text-align: center;
+}
+
+
+button {
+    background-color: #ffffff;
+    padding: .5rem 1rem;
+    color: #000000;
+    margin: 10px 0;
+    width: 150px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3d3d3;
+    color: #000000;
+    transform: scale(1.05);
+}

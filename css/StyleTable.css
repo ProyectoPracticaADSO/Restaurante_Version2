@@ -1,0 +1,194 @@
+/* === Fondo y tipografía === */
+body {
+background-color: #f8f9fa;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+color: #333;
+background-image: url("https://cdn.glitch.global/fc6de9c3-3b09-4138-abd9-3523a30daef9/Copia%20de%20Copia%20de%20Presentaci%C3%B3n%20Plan%20de%20Negocio%20Restaurante%20Profesional%20Amarillo%20(4).png?v=1745979748127");
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+/* === Contenedor general === */
+.container {
+background: #ffffff;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* === Encabezado === */
+header h1 {
+font-size: 1.8rem;
+font-weight: bold;
+margin-bottom: 20px;
+color: #f39c12;
+}
+
+/* === Icono volver === */
+.volver-wrapper {
+position: absolute;
+top: 10px;
+right: 10px;
+z-index: 10;
+}
+
+.back-icon {
+display: inline-flex;
+justify-content: center;
+align-items: center;
+width: 40px;
+height: 40px;
+background-color: orange;
+color: white;
+border-radius: 50%;
+font-size: 20px;
+text-decoration: none;
+border: none;
+transition: background 0.3s ease;
+}
+
+.back-icon:hover {
+background-color: darkorange;
+}
+
+.back-icon i {
+color: white;
+}
+
+/* === Formulario === */
+.form-wrapper {
+background: #f1f1f1;
+padding: 15px;
+border-radius: 10px;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+#formGestionMesas input {
+border-radius: 8px;
+border: 1px solid #ccc;
+padding: 6px 10px;
+width: 120px;
+}
+
+#formGestionMesas button {
+background-color: #28a745;
+color: white;
+border: none;
+border-radius: 8px;
+padding: 6px 14px;
+transition: background 0.3s ease;
+}
+
+#formGestionMesas button:hover {
+background-color: #218838;
+}
+
+/* === Tabla === */
+.table-wrapper {
+overflow-x: auto;
+}
+
+.table {
+width: 100%;
+background: white;
+border-radius: 10px;
+overflow: hidden;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.table th {
+background-color: #343a40;
+color: white;
+text-align: center;
+padding: 12px;
+}
+
+.table td {
+vertical-align: middle;
+text-align: center;
+padding: 10px;
+border-bottom: 1px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+background-color: #f2f2f2;
+}
+
+/* === Badges de estado === */
+.badge {
+font-size: 0.9rem;
+padding: 5px 10px;
+border-radius: 12px;
+display: inline-block;
+}
+
+.badge-success {
+background-color: #28a745;
+color: white;
+}
+
+.badge-danger {
+background-color: #dc3545;
+color: white;
+}
+
+.badge-warning {
+background-color: #ffc107;
+color: #212529;
+}
+
+/* === Checkbox seleccionar todas === */
+#selectAll {
+transform: scale(1.2);
+margin-right: 8px;
+}
+
+/* === Botón eliminar === */
+.delete-button-wrapper {
+margin-bottom: 15px;
+text-align: right;
+}
+
+#deleteButton {
+background-color: #dc3545;
+color: white;
+border: none;
+border-radius: 8px;
+padding: 6px 14px;
+transition: background 0.3s ease;
+}
+
+#deleteButton:hover {
+background-color: #c82333;
+}
+
+/* === Etiqueta de cantidad de mesas === */
+.label-wrapper {
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: flex-end;
+margin-top: 10px;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+.form-wrapper {
+flex-direction: column;
+}
+
+.label-wrapper {  
+    justify-content: center;  
+}  
+
+#formGestionMesas {  
+    width: 100%;  
+}
+
+}

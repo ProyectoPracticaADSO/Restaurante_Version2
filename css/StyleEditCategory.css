@@ -1,0 +1,280 @@
+:root {
+    --clr-primary: #ffa726; /* Naranja suave */
+    --clr-secondary: #fff3e0;
+    --clr-dark: #333;
+    --clr-light: #ffffff;
+    --clr-gray: #e0e0e0;
+    --clr-shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--clr-secondary);
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    background-image: url("https://cdn.glitch.global/fc6de9c3-3b09-4138-abd9-3523a30daef9/Copia%20de%20Copia%20de%20Presentaci%C3%B3n%20Plan%20de%20Negocio%20Restaurante%20Profesional%20Amarillo%20(4).png?v=1745979748127");
+
+}
+
+.container {
+    max-width: 1000px;
+    width: 95%;
+    padding: 60px;
+    margin: 30px auto;
+    background-color: var(--clr-light);
+    border-radius: 16px;
+    box-shadow: 0 0 15px var(--clr-shadow);
+    position: relative;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 40px Arial sans-serif;
+    color:#F4A300;
+    margin:0px 16px 0px 0px;
+}
+
+.back-icon {
+  color: orange;
+  text-decoration: none;
+  font-size: 1.8rem;
+  transition: transform 0.2s;
+}
+
+.back-icon:hover {
+  transform: scale(1.1);
+  color: darkorange;
+}
+
+.alert {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.menu-category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.category-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--clr-light);
+    border: 2px solid var(--clr-primary);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 10px var(--clr-shadow);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.category-box:hover {
+    transform: scale(1.00);
+    background-color: var(--clr-secondary);
+}
+
+.category-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.category-content img,
+.category-content .no-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: var(--clr-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
+}
+
+.category-content button {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--clr-dark);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.category-content button:focus,
+.category-content button:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.category-content button:hover {
+    text-decoration: none;
+    color: var(--clr-primary);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+
+.actions a {
+    color: var(--clr-dark);
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.actions a:hover {
+    color: var(--clr-primary);
+}
+
+
+.button-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.button-container button {
+    background-color: var(--clr-primary);
+    color: var(--clr-light);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px var(--clr-shadow);
+}
+
+.button-container button:hover {
+    background-color: #fb8c00;
+    transform: scale(1.05);
+}
+
+
+
+    
+
+
+
+    @media (max-width: 480px) {
+        
+
+         /* para el head */
+         head {
+            padding: 10px;
+        }
+
+        .header.main-header {
+            padding: 8 px;
+        }
+
+      
+        div.category-box {
+            font-size: 8 px;
+        }
+        
+        
+        
+        
+        
+        
+        
+        body {
+    padding: 10px;
+    align-items: center;
+  }
+
+
+  .container {
+    width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .menu-category {
+    grid-template-columns: 1fr; /* 1 columna */
+     width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+ .category-box {
+    grid-template-columns: 1fr; /* 1 columna */
+     width: 90%;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+  .category-content img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .category-content button {
+    font-size: 18px;
+  }
+
+  .actions a {
+    font-size: 18px;
+  }
+        
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        footer {
+            padding: 6px 10px;
+        }
+
+        .contact-info a {
+            font-size: 12px;
+        }
+
+        .footer-copy {
+            font-size: 8px;
+        }
+      
+        div.category-box {
+            font-size: 8px;
+        }
+
+
+
+    }
+
