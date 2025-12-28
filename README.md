@@ -108,3 +108,5 @@ Cada desarrollador debe ejecutar composer install
 
 Realizar commits solo cuando una funcionalidad esté funcionando
 ```
+
+# Validación de permisos en repositorio OK
