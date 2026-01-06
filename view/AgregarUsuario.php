@@ -19,7 +19,7 @@
     }
 
     .ajs-message {
-      top: -30px !important;
+      top: -60px !important;
     }
   </style>
 </head>
