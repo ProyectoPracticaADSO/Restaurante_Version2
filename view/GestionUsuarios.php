@@ -37,7 +37,7 @@ $usuarios = $user->getUser();
     </header>
 
     <div class="search-bar">
-      <input type="text" placeholder="Buscar empleado...">
+      <input type="text" id="searchInput" placeholder="Buscar empleado...">
       <i class="fa fa-search"></i>
     </div>
 
@@ -105,6 +105,7 @@ $usuarios = $user->getUser();
 
 
 <script src="../model/js/modal.js"></script>
+<script src="../model/js/searchGestionUsuarios.js"></script>
 <?php include '../view/bases/base2.php'; ?>
 <?php include '../view/bases/base1.php'; ?>
 
