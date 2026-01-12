@@ -4,13 +4,13 @@ class User extends ConnectionDB
 {
 
 
-    public function insertUser($id, $nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado)
+    public function insertUser($nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado)
     {
-        $sql = "INSERT INTO usuarios (id, nombre_usuario, cedula_usuario, numero_usuario, correo_usuario, contraseña_usuario, fk_id_perfil, fk_id_estado) 
-         VALUES (:id, :nombre, :cedula, :numero, :correo, :contrasena, :perfil, :estado)";
+        $sql = "INSERT INTO usuarios (nombre_usuario, cedula_usuario, numero_usuario, correo_usuario, contraseña_usuario, fk_id_perfil, fk_id_estado) 
+         VALUES ( :nombre, :cedula, :numero, :correo, :contrasena, :perfil, :estado)";
 
         $query = parent::connection()->prepare($sql);
-        $query->bindParam(':id', $id);
+        // $query->bindParam(':id', $id);
         $query->bindParam(':nombre', $nombre);
         $query->bindParam(':cedula', $cedula);
         $query->bindParam(':numero', $numero);
@@ -21,7 +21,8 @@ class User extends ConnectionDB
 
         return $query->execute();
     }
-    public function guardarToken($correo, $token, $expira) {
+    public function guardarToken($correo, $token, $expira)
+    {
         $sql = "UPDATE usuarios SET token_recuperacion = :token, token_expiracion = :expira WHERE correo_usuario = :correo";
         $query = parent::connection()->prepare($sql);
         $query->bindParam(':token', $token);
@@ -29,16 +30,18 @@ class User extends ConnectionDB
         $query->bindParam(':correo', $correo);
         return $query->execute();
     }
-    
-    public function verificarToken($token) {
+
+    public function verificarToken($token)
+    {
         $sql = "SELECT * FROM usuarios WHERE token_recuperacion = :token AND token_expiracion > NOW()";
         $query = parent::connection()->prepare($sql);
         $query->bindParam(':token', $token);
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC) !== false;
     }
-    
-    public function actualizarContrasenaConToken($token, $nuevaContrasena) {
+
+    public function actualizarContrasenaConToken($token, $nuevaContrasena)
+    {
         $sql = "UPDATE usuarios SET contraseña_usuario = :nuevaContrasena, token_recuperacion = NULL, token_expiracion = NULL WHERE token_recuperacion = :token";
         $query = parent::connection()->prepare($sql);
         $query->bindParam(':nuevaContrasena', $nuevaContrasena);
@@ -85,7 +88,7 @@ class User extends ConnectionDB
 
         return $result['count'] > 0;
     }
-  
+
     public function deleteUser($id)
     {
         $sql = "DELETE FROM usuarios WHERE id = :id";

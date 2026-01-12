@@ -103,7 +103,7 @@
 
         <div class="form-group" id="contrasenaDiv" style="display:none;">
           <label for="contrasena">Contraseña:</label>
-          <input type="password" class="form-control" pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1\d]+(?: [A-Za-zÀ-ÿ\u00f1\u00d1\d]+)*$" id="contrasena" name="contrasena" required>
+          <input type="password" class="form-control" pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1\d]+(?: [A-Za-zÀ-ÿ\u00f1\u00d1\d]+)*$" id="contrasena" name="contrasena">
           <div class="invalid-feedback">Por favor ingrese una contraseña.</div>
         </div>
 
@@ -134,9 +134,9 @@
   </script>
 
 
-  <script src="../js/validation.js"></script>
-  <script src="../js/adminValidation.js"></script>
-  <script src="../js/inventorySearch.js"></script>
+  <script src="../model/js/validation.js"></script>
+  <script src="../model/js/adminValidation.js"></script>
+  <script src="../model/js/inventorySearch.js"></script>
 
   <?php include '../view/bases/base2.php'; ?>
   <?php include '../view/bases/base1.php'; ?>

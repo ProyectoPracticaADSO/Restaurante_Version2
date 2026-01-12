@@ -8,7 +8,7 @@ if (isset($_GET['action'])) {
 
 
 	if ($_GET['action'] == 'agregar') {
-		$id = '0'; //Al ser autoincrementable se pone 0.
+		// $id = '0'; //Al ser autoincrementable se pone 0.
 		$nombre = $_POST['nombre'];
 		$cedula = $_POST['cedula'];
 		$numero = $_POST['numero'];
@@ -33,10 +33,10 @@ if (isset($_GET['action'])) {
 			exit();
 		}
 
-		$resultado = $user->insertUser($id, $nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado);
+		$resultado = $user->insertUser($nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado);
 
 		if ($resultado) {
-			header('Location: ../view/AgregarUsuario.php?success');
+			header('Location: ../view/GestionUsuarios.php?success');
 		} else {
 			header('Location: ../view/AgregarUsuario.php?error');
 		}
