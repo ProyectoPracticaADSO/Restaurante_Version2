@@ -34,7 +34,10 @@
         <a href="../GestionUsuarios.php"><i class="fa-solid fa-user-tie"></i> Personal</a>
         <a href="../GestionInventario.php"><i class="fa-solid fa-boxes"></i> Inventario</a>
         <!-- Opción de Salir con modal -->
-        <a href="#" onclick="showModalConfirm('/view/loginAd.php')"><i class="fa-solid fa-sign-out-alt"></i> Salir</a>
+         <a href="#" onclick="showModalConfirm('/restaurante_version2/view/loginAd.php')">
+            <i class="fa-solid fa-sign-out-alt"></i> Salir
+         </a>
+
       </nav>
     </aside>
 
@@ -102,9 +105,9 @@
 
 
 
-  <script src="../../modal.js"></script>
+  <script src="/restaurante_version2/js/modal.js"></script>
 
-  <script src="../../main.js"></script>
+  <script src="/restaurante_version2/js/main.js"></script>
 </body>
 
 </html>

@@ -45,3 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+//Para que se confirme sis se quiere salir
+function showModalConfirm(url) {
+  const modal = document.getElementById('modal-confirm');
+  const btnConfirm = document.getElementById('btn-confirm');
+  const btnCancel = document.getElementById('btn-cancel');
+
+  if (!modal) {
+    console.error('Modal no encontrado');
+    return;
+  }
+
+  modal.style.display = 'flex';
+
+  btnConfirm.onclick = function () {
+    window.location.href = url;
+  };
+
+  btnCancel.onclick = function () {
+    modal.style.display = 'none';
+  };
+}

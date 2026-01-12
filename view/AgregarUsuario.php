@@ -52,12 +52,12 @@
       <!-- Cédula y Número en la misma fila -->
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="cedula">Cédula:</label>
+          <label for="cedula">Número de documento:</label>
           <input type="text" class="form-control" id="cedula" name="cedula" pattern="\d+" required>
           <div class="invalid-feedback">Por favor ingrese la cédula (solo números).</div>
         </div>
         <div class="form-group col-md-6">
-          <label for="numero">Número:</label>
+          <label for="numero">Número de contacto:</label>
           <input type="text" class="form-control" id="numero" name="numero" pattern="\d+" required>
           <div class="invalid-feedback">Por favor ingrese el celular (solo números).</div>
         </div>

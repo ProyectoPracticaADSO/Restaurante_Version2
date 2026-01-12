@@ -16,21 +16,21 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Empleado</title>
-   <link rel="stylesheet" href="../css/inventory.css">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../css/inventory.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 </head>
 
 <body>
-  <!-- Contenedor blanco principal -->
-  <div class="container mt-5 position-relative w-25" >
-   <?php include '../view/bases/base5.php'; ?> <!-- Exclusivo para el backspace -->
-   
+    <!-- Contenedor blanco principal -->
+    <div class="container mt-5 position-relative w-25">
+        <?php include '../view/bases/base5.php'; ?> <!-- Exclusivo para el backspace -->
+
         <?php
         if (isset($_GET['error'])) {
             echo '<div class="alert alert-danger">Error al actualizar el usuario.</div>';
@@ -38,17 +38,17 @@ if (isset($_GET['id'])) {
             echo '<div class="alert alert-success">Usuario actualizado exitosamente.</div>';
         }
         ?>
-    <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-      
-    <div class="d-flex align-items-center mb-3 mb-md-0">
-        <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png?v=1740605968751" alt="Logo" style="height: 50px; margin-right: 10px;">
-        <h1 class="display-10 mb-0 mr-3">Editar Empleados</h1>
-        <div class="btn-group ml-3 flex-wrap">
-          
-        </div>
-      </div>
-      
-    </header>
+        <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png?v=1740605968751" alt="Logo" style="height: 50px; margin-right: 10px;">
+                <h1 class="display-10 mb-0 mr-3">Editar Empleados</h1>
+                <div class="btn-group ml-3 flex-wrap">
+
+                </div>
+            </div>
+
+        </header>
 
         <form action="../controller/userController.php?action=editar" method="POST" class="needs-validation" novalidate>
             <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
@@ -59,18 +59,41 @@ if (isset($_GET['id'])) {
                 <input type="text" class="form-control" pattern="^[A-Za-zÀ-ÿ\u00f1\u00d1]+(?: [A-Za-zÀ-ÿ\u00f1\u00d1]+)*$" id="nombre" name="nombre" value="<?= $usuario['nombre_usuario'] ?>" required>
                 <div class="invalid-feedback">Por favor ingrese el nombre (Verifique los espacios en blanco).</div>
             </div>
-            <div class="form-row " >
+            <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="cedula">Cédula:</label>
-                    <input type="text" class="form-control" id="cedula" name="cedula" pattern="\d+" value="<?= $usuario['cedula_usuario'] ?>" readonly>
-                    <div class="invalid-feedback">Por favor ingrese la cédula (solo números).</div>
+                    <label for="tipoDocumento">Tipo de documento:</label>
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                        <option value="">Seleccione...</option>
+                        <option value="CC">Cédula de ciudadanía</option>
+                        <option value="TI">Tarjeta de identidad</option>
+                        <option value="PAS">Pasaporte</option>
+                    </select>
                 </div>
+
                 <div class="form-group col-md-6">
-                    <label for="numero">Número:</label>
-                    <input type="text" class="form-control" id="numero" name="numero" pattern="\d+" value="<?= $usuario['numero_usuario'] ?>" required>
-                    <div class="invalid-feedback">Por favor ingrese el número (solo números).</div>
+                    <label for="cedula">Número de documento:</label>
+                    <input type="text" class="form-control" id="cedula" name="cedula"
+                        pattern="[0-9]+" inputmode="numeric"
+                        value="<?= $usuario['cedula_usuario'] ?>" required>
+                    <div class="invalid-feedback">Por favor ingrese solo números.</div>
                 </div>
+
+                <div class="form-group col-md-6">
+                    <label for="numero">Teléfono:</label>
+                    <input type="text" class="form-control" id="numero" name="numero"
+                        pattern="[0-9]+" inputmode="numeric"
+                        value="<?= $usuario['numero_usuario'] ?>" required>
+                    <div class="invalid-feedback">Por favor ingrese solo números.</div>
+                </div>
+
+                <script>
+                    document.getElementById('numero').addEventListener('input', function() {
+                        this.value = this.value.replace(/\D/g, ''); // elimina todo lo que no sea número
+                    });
+                </script>
+
             </div>
+
             <div class="form-group ">
                 <label for="correo">Correo:</label>
                 <input type="email" class="form-control" id="correo" name="correo" value="<?= $usuario['correo_usuario'] ?>" required>
@@ -104,49 +127,49 @@ if (isset($_GET['id'])) {
                 <div class="invalid-feedback">Por favor ingrese una contraseña válida.</div>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning px-5" data-bs-toggle="modal" data-bs-target="#confirmModal" >Actualizar</button>
-           
+                <button type="button" class="btn btn-warning px-5" data-bs-toggle="modal" data-bs-target="#confirmModal">Actualizar</button>
+
 
             </div>
-          
+
         </form>
     </div>
 
 
 
-  <!-- Modal de Confirmación -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning">
-        <h5 class="modal-title" id="confirmModalLabel">Confirmar Edición</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas guardar los cambios en este registro?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" id="confirmEditBtn">Sí, guardar</button>
-      </div>
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Edición</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas guardar los cambios en este registro?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Sí, guardar</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-  <script>
-  document.getElementById('confirmEditBtn').addEventListener('click', function() {
-    document.getElementById('editForm').submit(); // Enviar formulario al confirmar
-  });
-</script>
+    <script>
+        document.getElementById('confirmEditBtn').addEventListener('click', function() {
+            document.getElementById('editForm').submit(); // Enviar formulario al confirmar
+        });
+    </script>
 
 
 
 
-  <!-- Modal de Confirmación -->
-  <script src="../js/validation.js"></script>
-  <script src="../js/inventorySearch.js"></script>
-  <?php include '../view/bases/base2.php'; ?>
-  <?php include '../view/bases/base1.php'; ?>
+    <!-- Modal de Confirmación -->
+    <script src="../js/validation.js"></script>
+    <script src="../js/inventorySearch.js"></script>
+    <?php include '../view/bases/base2.php'; ?>
+    <?php include '../view/bases/base1.php'; ?>
 
 
 
