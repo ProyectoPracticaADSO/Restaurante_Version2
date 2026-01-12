@@ -47,7 +47,7 @@ $usuarios = $user->getUser();
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Cédula</th>
+            <th>Tipo de documento</th>
             <th>Número</th>
             <th>Correo</th>
             <th>Perfil</th>
