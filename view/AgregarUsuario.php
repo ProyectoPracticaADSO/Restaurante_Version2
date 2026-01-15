@@ -59,16 +59,11 @@
 
         <!-- Cédula y Número en la misma fila -->
         <div class="form-row">
-          <!-- <div class="form-group col-md-6">
-            <label for="cedula">Cédula:</label>
-            <input type="text" class="form-control" id="cedula" name="cedula" pattern="\d+" required>
-            <div class="invalid-feedback">Por favor ingrese la cédula (solo números).</div>
-          </div> -->
 
           <!-- Se agrega combobox para selección de tipo de documento -->
           <div class="form-group">
-            <label for="cedula">Tipo de documento:</label>
-            <select class="form-control" id="cedula" name="cedula" required>
+            <label for="tipo_documento">Tipo de documento:</label>
+            <select class="form-control" id="tipo_documento" name="tipo_documento" required>
               <option value="">Seleccione un tipo</option>
               <option value="CC">Cédula de ciudadanía</option>
               <option value="TI">Tarjeta de identidad</option>
@@ -81,6 +76,11 @@
           <div class="form-group col-md-6">
             <label for="numero">Número documento:</label>
             <input type="text" class="form-control" id="numero" name="numero" pattern="\d+" required>
+            <div class="invalid-feedback">Por favor ingrese el número (solo números).</div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="numero_telefono">Número contacto:</label>
+            <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" pattern="\d+" required>
             <div class="invalid-feedback">Por favor ingrese el número (solo números).</div>
           </div>
         </div>

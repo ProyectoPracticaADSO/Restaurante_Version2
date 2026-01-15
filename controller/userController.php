@@ -1,80 +1,126 @@
 <?php
 include_once '../model/user.php';
 
-
-
 if (isset($_GET['action'])) {
+
 	$user = new User();
 
-
+	/* =======================
+      AGREGAR USUARIO
+    ======================= */
 	if ($_GET['action'] == 'agregar') {
-		// $id = '0'; //Al ser autoincrementable se pone 0.
-		$nombre = $_POST['nombre'];
-		$cedula = $_POST['cedula'];
-		$numero = $_POST['numero'];
-		$correo = $_POST['correo'];
-		$contrasena = $_POST['contrasena'];
-		$perfil = $_POST['perfil'];
-		$estado = $_POST['estado'];
 
-		//Validación de campos vacíos o nulos 
-		if (empty($nombre) || empty($cedula) || empty($numero) || empty($correo) || empty($perfil) || empty($estado)) {
-			header('Location: ../view/AgregarUsuario.php?error=campos_vacios');
+		// Recibir datos del formulario
+		$nombre = $_POST['nombre'] ?? '';
+		$tipoDocumento = $_POST['tipo_documento'] ?? '';
+		$numeroDocumento = $_POST['numero'] ?? '';
+		$numeroTelefono = $_POST['numero_telefono'] ?? '';
+		$correo = $_POST['correo'] ?? '';
+		$perfil = $_POST['perfil'] ?? '';
+		$estado = $_POST['estado'] ?? '';
+		$contrasena = $_POST['contrasena'] ?? '';
+
+		// Construir cédula completa
+		// $cedula = $tipoDocumento . '-' . $numeroDocumento;
+
+		//  Validación de campos obligatorios
+		if (
+			empty($nombre) ||
+			empty($tipoDocumento) ||
+			empty($numeroDocumento) ||
+			empty($numeroTelefono) ||
+			empty($correo) ||
+			empty($perfil) ||
+			empty($estado)
+		) {
+			header('Location: ../view/AgregarUsuario.php?error=campos');
 			exit();
 		}
 
+		// Lógica de contraseña
 		if ($perfil != 1) {
-			$contrasena = $cedula;
+			$contrasena = $numeroDocumento;
 		}
 
-		$existeCedula = $user->existCedula($cedula);
-		if ($existeCedula) {
-			header('Location: ../view/AgregarUsuario.php?error');
+		// Validar duplicado de cédula (usar cédula completa)
+		if ($user->existCedula($numeroDocumento)) {
+			header('Location: ../view/AgregarUsuario.php?error=cedula');
 			exit();
 		}
 
-		$resultado = $user->insertUser($nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado);
+		// Insertar usuario (ORDEN CORRECTO)
+		$resultado = $user->insertUser(
+			$nombre,
+			$tipoDocumento,
+			$numeroDocumento,
+			$numeroTelefono,
+			$correo,
+			$contrasena,
+			$perfil,
+			$estado
+		);
 
+		// Redirección
 		if ($resultado) {
-			header('Location: ../view/GestionUsuarios.php?success');
+			header('Location: ../view/GestionUsuarios.php?success=creado');
 		} else {
-			header('Location: ../view/AgregarUsuario.php?error');
+			header('Location: ../view/AgregarUsuario.php?error=insertar');
 		}
+		exit();
 	}
 
-
+	/* =======================
+      ELIMINAR USUARIO
+    ======================= */
 	if ($_GET['action'] == 'eliminar' && isset($_GET['id'])) {
+
 		$idUsuario = $_GET['id'];
 
-		$resultado = $user->deleteUser($idUsuario);
-
-		if ($resultado) {
+		if ($user->deleteUser($idUsuario)) {
 			header('Location: ../view/GestionUsuarios.php?success=eliminado');
 		} else {
-			header('Location: ../view/GestionUsuarios.php');
+			header('Location: ../view/GestionUsuarios.php?error=eliminar');
 		}
+		exit();
 	}
 
+	/* =======================
+      EDITAR USUARIO
+    ======================= */
 	if ($_GET['action'] == 'editar' && isset($_POST['id'])) {
+
 		$id = $_POST['id'];
 		$nombre = $_POST['nombre'];
-		$cedula = $_POST['cedula'];
-		$numero = $_POST['numero'];
+		$tipoDocumento = $_POST['tipo_documento'] ?? '';
+		$numeroDocumento = $_POST['numero'] ?? '';
+		// $cedula = $_POST['cedula'];
+		$numeroTelefono = $_POST['numero_telefono'];
 		$correo = $_POST['correo'];
 		$perfil = $_POST['perfil'];
 		$estado = $_POST['estado'];
 		$contrasena = $_POST['contrasena'];
 
 		if ($perfil != 1) {
-			$contrasena = $cedula;
+			$contrasena = $numeroDocumento;
 		}
 
-		$resultado = $user->updateUser($id, $nombre, $cedula, $numero, $correo, $contrasena, $perfil, $estado);
+		$resultado = $user->updateUser(
+			$id,
+			$nombre,
+			$tipoDocumento,
+			$numeroDocumento,
+			$numeroTelefono,
+			$correo,
+			$contrasena,
+			$perfil,
+			$estado
+		);
 
 		if ($resultado) {
 			header('Location: ../view/GestionUsuarios.php?success=actualizado');
 		} else {
 			header('Location: ../view/EditarUsuario.php?id=' . $id . '&error');
 		}
+		exit();
 	}
 }

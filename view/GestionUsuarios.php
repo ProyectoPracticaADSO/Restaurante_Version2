@@ -49,6 +49,7 @@ $usuarios = $user->getUser();
             <th>Nombre</th>
             <th>Tipo de documento</th>
             <th>Número</th>
+            <th>Teléfono</th>
             <th>Correo</th>
             <th>Perfil</th>
             <th>Estado</th>
@@ -62,6 +63,7 @@ $usuarios = $user->getUser();
               <td><?= $usuario['nombre_usuario'] ?></td>
               <td><?= $usuario['cedula_usuario'] ?></td>
               <td><?= $usuario['numero_usuario'] ?></td>
+              <td><?= $usuario['numero_telefono'] ?></td>
               <td><?= $usuario['correo_usuario'] ?></td>
               <td><?= $usuario['nombre_perfil'] ?></td>
               <td><?= $usuario['nombre_estado'] ?></td>
