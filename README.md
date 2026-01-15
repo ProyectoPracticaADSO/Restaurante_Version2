@@ -110,3 +110,4 @@ Realizar commits solo cuando una funcionalidad esté funcionando
 ```
 
 # Validación de permisos en repositorio OK
+# Validación de repositorio Yovanny Giraldo
