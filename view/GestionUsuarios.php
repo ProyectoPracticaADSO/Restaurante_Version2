@@ -24,6 +24,34 @@ $usuarios = $user->getUser();
   <div class="container mt-5 position-relative">
     <?php include '../view/bases/base4.php'; ?>
 
+    <!-- /* =============
+      MENSAJES DE ALERTA
+    ================= */ -->
+    <?php if (isset($_GET['success'])): ?>
+      <script>
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.set('notifier', 'delay', 3);
+
+        <?php if ($_GET['success'] === 'creado'): ?>
+          alertify.success('Usuario creado correctamente');
+        <?php elseif ($_GET['success'] === 'actualizado'): ?>
+          alertify.success('Usuario actualizado correctamente');
+        <?php elseif ($_GET['success'] === 'eliminado'): ?>
+          alertify.success('Usuario eliminado correctamente');
+        <?php endif; ?>
+
+        // Limpia la URL para que no reaparezca el mensaje al recargar
+        if (window.history.replaceState) {
+          const url = new URL(window.location);
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          window.history.replaceState({}, document.title, url.pathname);
+        }
+      </script>
+    <?php endif; ?>
+    <!--=========================================== -->
+
+
     <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
       <div class="d-flex align-items-center mb-3 mb-md-0">
         <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png?v=1740605968751" alt="Logo" style="height: 40px; margin-right: 5px;">
