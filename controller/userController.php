@@ -20,8 +20,6 @@ if (isset($_GET['action'])) {
 		$estado = $_POST['estado'] ?? '';
 		$contrasena = $_POST['contrasena'] ?? '';
 
-		// Construir cédula completa
-		// $cedula = $tipoDocumento . '-' . $numeroDocumento;
 
 		//  Validación de campos obligatorios
 		if (
@@ -72,11 +70,13 @@ if (isset($_GET['action'])) {
 	/* =======================
       ELIMINAR USUARIO
     ======================= */
-	if ($_GET['action'] == 'eliminar' && isset($_GET['id'])) {
+
+	if ($_GET['action'] === 'eliminar' && isset($_GET['id'])) {
 
 		$idUsuario = $_GET['id'];
+		$resultado = $user->eliminarUsuario($idUsuario);
 
-		if ($user->deleteUser($idUsuario)) {
+		if ($resultado) {
 			header('Location: ../view/GestionUsuarios.php?success=eliminado');
 		} else {
 			header('Location: ../view/GestionUsuarios.php?error=eliminar');
@@ -93,7 +93,6 @@ if (isset($_GET['action'])) {
 		$nombre = $_POST['nombre'];
 		$tipoDocumento = $_POST['tipo_documento'] ?? '';
 		$numeroDocumento = $_POST['numero'] ?? '';
-		// $cedula = $_POST['cedula'];
 		$numeroTelefono = $_POST['numero_telefono'];
 		$correo = $_POST['correo'];
 		$perfil = $_POST['perfil'];

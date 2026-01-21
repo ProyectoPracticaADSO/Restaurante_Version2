@@ -60,12 +60,18 @@ class User extends ConnectionDB
 
     return $result['count'] > 0;
   }
+
   public function getUser()
   {
-    $query = parent::connection()->prepare("SELECT u.id, u.nombre_usuario, u.cedula_usuario, u.numero_usuario, u.numero_telefono ,u.correo_usuario, p.nombre_perfil, e.nombre_estado
+    $query = parent::connection()->prepare("
+        SELECT u.id, u.nombre_usuario, u.cedula_usuario, u.numero_usuario,
+              u.numero_telefono, u.correo_usuario,
+              p.nombre_perfil, e.nombre_estado
         FROM usuarios u
         JOIN perfiles p ON u.fk_id_perfil = p.id
-        JOIN estados e ON u.fk_id_estado = e.id");
+        JOIN estados e ON u.fk_id_estado = e.id
+        WHERE u.eliminado = 0
+    ");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -90,15 +96,19 @@ class User extends ConnectionDB
     return $result['count'] > 0;
   }
 
-  public function deleteUser($id)
+  public function eliminarUsuario($id)
   {
-    $sql = "DELETE FROM usuarios WHERE id = :id";
+    $sql = "UPDATE usuarios 
+            SET eliminado = 1 
+            WHERE id = :id";
 
     $query = parent::connection()->prepare($sql);
     $query->bindParam(':id', $id);
 
     return $query->execute();
   }
+
+
 
   public function updateUser($id, $nombre, $tipoDocumento, $numero, $numero_telefono, $correo, $contrasena, $perfil, $estado)
   {
