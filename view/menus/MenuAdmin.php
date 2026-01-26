@@ -34,7 +34,7 @@
         <a href="../GestionUsuarios.php"><i class="fa-solid fa-user-tie"></i> Personal</a>
         <a href="../GestionInventario.php"><i class="fa-solid fa-boxes"></i> Inventario</a>
         <!-- Opción de Salir con modal -->
-        <a href="#" onclick="showModalConfirm('/view/loginAd.php')"><i class="fa-solid fa-sign-out-alt"></i> Salir</a>
+        <a href="javascript:void(0)" onclick="showModalConfirm('../../index.php')"><i class="fa-solid fa-sign-out-alt"></i> Salir </a>
       </nav>
     </aside>
 
@@ -94,13 +94,37 @@
     </div>
   </div>
 
+<!-- SCRIPT PARA OCULTAR/MOSTRAR LAS TARJETAS -->
+  <script>
+    document.querySelector(".toggle-btn").addEventListener("click", () => {
+      const cards = document.querySelectorAll(".cards-grid .card");
+      cards.forEach(card => {
+        card.classList.toggle("hidden");
+      });
+    });
+  </script>
+  
+<!-- SCRIPT PARA SALIR -->
+  <script>
+    function showModalConfirm(redirectUrl) {
+    const modal = document.getElementById("modal-confirm");
+    modal.style.display = "flex"; // o "block", según tu CSS
 
+    // Botón cancelar
+    document.getElementById("btn-cancel").onclick = () => {
+    modal.style.display = "none";
+    };
 
+    // Botón confirmar
+    document.getElementById("btn-confirm").onclick = () => {
+    window.location.href = redirectUrl;
+    };
+      }
+  </script>
 
+ 
   <!-- Pie de página PHP -->
   <?php include '../bases/base2.php'; ?>
-
-
 
   <script src="../../modal.js"></script>
 

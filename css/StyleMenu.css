@@ -29,7 +29,6 @@ body {
 }
 
 
-
 /* SIDEBAR */
 .sidebar {
   width: 250px;
@@ -40,6 +39,17 @@ body {
   transition: transform 0.3s ease;
   z-index: 1000;
 }
+
+.card {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.card.hidden {
+  opacity: 0;
+  transform: scale(0.9); /* se encoge un poco */
+  pointer-events: none;  /* evita que se pueda hacer click mientras está oculto */
+}
+
 
 .sidebar a,
 .main-content a {
