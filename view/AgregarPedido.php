@@ -65,7 +65,7 @@ if (isset($_POST['plato']) && !empty($_POST['plato'])) {
             <!-- Formulario 1: para agregar elementos al pedido -->
             <form action="AgregarPedido.php" method="POST" class="needs-validation col-md-6" novalidate>
                 <input type="hidden" name="id" value="<?= $idMesa ?>">
-            
+
                 <div class="left-panel col-md-12">
                     <div class="form-group">
                         <label for="categoria">CATEGORIAS</label>
