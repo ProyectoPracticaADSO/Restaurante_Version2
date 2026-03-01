@@ -11,8 +11,24 @@ $modelMesa = new Mesa();
 
 $categorias = $category->getCategory();
 
-$idMesa = $_POST['id'] ?? $_GET['id'];
-$mesa = $modelMesa->getMesaById($idMesa);
+$idMesa = $_POST['id'] ?? $_GET['id'] ?? null;
+
+// Si ni siquiera hay un ID, o el modelo devuelve false, activamos el Modal
+if (!$idMesa || !($mesa = $modelMesa->getMesaById($idMesa))) {
+    echo "
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css'/>
+    <script src='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js'></script>
+    <script>
+        window.onload = function() {
+            alertify.alert('Acceso Denegado', 'Debe seleccionar una mesa válida antes de crear un pedido.', function(){ 
+                window.location.href = 'menupedidos.php'; 
+            });
+        };
+    </script>";
+    exit; // Detenemos la ejecución para que no llegue a la línea 16 con errores
+}
+
+// Si llega aquí, es porque hay una mesa válida
 $numeroMesa = $mesa['numero_mesa'];
 
 $platos = [];

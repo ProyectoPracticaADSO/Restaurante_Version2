@@ -9,12 +9,13 @@ $mesas = $mesa->getMesas();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
     <link rel="stylesheet" href="../css/StyleOrderMenu.css">
@@ -27,8 +28,9 @@ $mesas = $mesa->getMesas();
         <a href="./menus/MenuMesero.php" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
         <h1>PEDIDOS</h1>
 
-        <form action="../controller/orderMenuController.php" method="POST" class="needs-validation" novalidate>
+        <!--Modificacion en formulario para que no se cree pedido sin seleccionar mesa-->
 
+        <form id="formMenu" action="../controller/orderMenuController.php" method="POST" class="needs-validation" novalidate>
             <div class="order-form">
                 <div class="form-group">
                     <label for="mesa">Número de la mesa</label>
@@ -45,7 +47,6 @@ $mesas = $mesa->getMesas();
                     <button type="submit" name="action" value="view">Ver Pedido</button>
                 </div>
             </div>
-
         </form>
     </div>
 
@@ -62,6 +63,19 @@ $mesas = $mesa->getMesas();
         if (mensaje === 'agregado') {
             alertify.success('Pedido agregado exitosamente');
         }
+    </script>
+    <!--Añado script para que no se cree pedido sin seleccionar mesa-->
+    <script>
+        document.getElementById('formMenu').addEventListener('submit', function(e) {
+            // Obtenemos el valor seleccionado en el <select>
+            var mesaSeleccionada = document.getElementById('mesa').value;
+
+            // Si el valor es vacío (la opción por defecto)
+            if (mesaSeleccionada === "") {
+                e.preventDefault(); // BLOQUEA el envío hacia el controlador
+                alertify.error('Por favor, seleccione una mesa primero.');
+            }
+        });
     </script>
 
 </body>
