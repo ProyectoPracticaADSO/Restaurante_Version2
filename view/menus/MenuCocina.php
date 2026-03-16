@@ -21,14 +21,14 @@
         <a href="../../index.php" class="back-icon-circle">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <h1>Menú Cocina</h1>
+        <h1>Menú cocina</h1>
       </header>
 
       <section class="cards-grid">
 
         <a href="../VerPedidosCocina.php" class="card">
           <i class="fa-solid fa-receipt"></i>
-          <h2>Ver Pedidos</h2>
+          <h2>Ver pedidos</h2>
         </a>
       </section>
     </main>
