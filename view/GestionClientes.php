@@ -1,0 +1,141 @@
+<?php
+include_once '../model/user.php';
+$user = new User();
+$usuarios = $user->getUser();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Clientes</title>
+  <link rel="stylesheet" href="../css/inventory.css">
+  <link rel="stylesheet" href="../css/modal.css" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container mt-5 position-relative">
+    <?php include '../view/bases/base4.php'; ?>
+
+    <!-- /* =============
+      MENSAJES DE ALERTA
+    ================= */ -->
+    <?php if (isset($_GET['success'])): ?>
+      <script>
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.set('notifier', 'delay', 3);
+
+        <?php if ($_GET['success'] === 'creado'): ?>
+          alertify.success('Usuario creado correctamente');
+        <?php elseif ($_GET['success'] === 'actualizado'): ?>
+          alertify.success('Usuario actualizado correctamente');
+        <?php elseif ($_GET['success'] === 'eliminado'): ?>
+          alertify.success('Usuario eliminado correctamente');
+        <?php endif; ?>
+
+        // Limpia la URL para que no reaparezca el mensaje al recargar
+        if (window.history.replaceState) {
+          const url = new URL(window.location);
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          window.history.replaceState({}, document.title, url.pathname);
+        }
+      </script>
+    <?php endif; ?>
+    <!--=========================================== -->
+
+
+    <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <div class="d-flex align-items-center mb-3 mb-md-0">
+        <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png?v=1740605968751" alt="Logo" style="height: 40px; margin-right: 5px;">
+        <h1 class="display-6 mb-0 mr-1">Clientes</h1>
+        <div class="btn-group ml-3 flex-wrap">
+          <br> <br>
+          <a href="AgregarUsuario.php" class="btn btn-outline-secondary mx-0.5 mb-0.5">Agregar Cliente</a>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar cliente...">
+      <i class="fa fa-search"></i>
+    </div>
+
+    <div class="table-wrapper table-responsive">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre completo</th>
+            <th>Número de documento</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($usuarios as $usuario) : ?>
+            <tr>
+              <td><?= $usuario['id'] ?></td>
+              <td><?= $usuario['nombre_usuario'] ?></td>
+              <td><?= $usuario['numero_usuario'] ?></td>
+              <td><?= $usuario['numero_telefono'] ?></td>
+              <td><?= $usuario['correo_usuario'] ?></td>
+              <td class="action-icons">
+                <a href="EditarUsuario.php?action=editar&id=<?= $usuario['id'] ?>" title="Editar">
+                  <i class="fa-solid fa-user-pen"></i>
+                </a>
+                <a href="#" class="eliminar-btn"
+                  data-id="<?= $usuario['id'] ?>"
+                  data-nombre="<?= $usuario['nombre_usuario'] ?>" title="Eliminar">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="result-container" class="alert alert-info text-center" style="display: none;"></div>
+  </div>
+
+
+</body>
+
+</html>
+
+<!-- MODAL CONFIRMACIÓN ELIMINAR -->
+<div id="modal-confirm" class="modal-overlay">
+  <div class="modal-content">
+    <h5>Confirmar eliminación</h5>
+    <p>¿Está seguro de eliminar este usuario?</p>
+    <div class="text-right">
+      <a id="btn-confirm" class="btn btn-danger">Eliminar</a>
+      <button id="btn-cancel" class="btn btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script src="../model/js/modal.js"></script>
+<script src="../model/js/searchGestionUsuarios.js"></script>
+<?php include '../view/bases/base2.php'; ?>
+<?php include '../view/bases/base1.php'; ?>
+
+
+
+
+</body>
+
+</html>
