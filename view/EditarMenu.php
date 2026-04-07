@@ -55,7 +55,7 @@ foreach (explode(',', $idAdiciones) as $idAdicion) {
       <?php include '../view/bases/base4.php'; ?>
       <a href="./GestionMenu.php?id=<?= $plate['fk_id_categorias'] ?>" class="back-icon">
         <h2 class="text-center mb-4">Editar producto</h2>
-
+       </a>
         <?php
         if (isset($_GET['success'])) {
           echo '<div class="alert alert-success">Producto agregado exitosamente</div>';

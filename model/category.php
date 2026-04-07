@@ -42,15 +42,26 @@ class Category extends ConnectionDB
     return $query->fetch(PDO::FETCH_ASSOC);
   }
 
-  public function updateCategory($id, $nombre_categoria)
+  public function updateCategory($id, $nombre_categoria, $imagen = null)
   {
-    $sql = "UPDATE categorias SET 
-                nombre_categoria = :nombre_categoria
-            WHERE id = :id";
+    if ($imagen !== null) {
+        // Caso A: Se subió una imagen nueva, actualizamos todo
+         $sql = "UPDATE categorias SET 
+                nombre_categoria = :nombre_categoria,
+                imagen = :imagen
+                WHERE id = :id";
+        $query = parent::connection()->prepare($sql);
+        $query->bindParam(':imagen', $imagen, PDO::PARAM_LOB);
+        } else {
+          // Caso B: NO se subió imagen, solo actualizamos el nombre
+           $sql = "UPDATE categorias SET
+           nombre_categoria = :nombre_categoria
+                WHERE id = :id";
+        $query = parent::connection()->prepare($sql);
+        }
 
-    $query = parent::connection()->prepare($sql);
-    $query->bindParam(':id', $id);
-    $query->bindParam(':nombre_categoria', $nombre_categoria);
+        $query->bindParam(':id', $id);
+        $query->bindParam(':nombre_categoria', $nombre_categoria);
 
     return $query->execute();
   }

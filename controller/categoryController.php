@@ -41,18 +41,19 @@ if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'editar' && isset($_POST['id'])) {
         $id = $_POST['id'];
-        $nombre_categoria = $_POST['nombre_categoria'];
-        if ($category->checkCategoryExists($nombre_categoria)) {
-            // Redirigir si la categoría ya existe
-            header('Location: ../view/AgregarCategoria.php?error=exists');
-            exit;
+        $nombre_categoria = trim($_POST['nombre_categoria']);
+
+        $imagen = null;
+         if (isset($_FILES['imagen_categoria']) && $_FILES['imagen_categoria']['tmp_name'] != "") {
+        $imagen = file_get_contents($_FILES['imagen_categoria']['tmp_name']);
         }
-        $resultado = $category->updateCategory($id, $nombre_categoria);
+        
+        $resultado = $category->updateCategory($id, $nombre_categoria, $imagen);
 
         if ($resultado) {
             header('Location: ../view/GestionCategorias.php?success=actualizado');
         } else {
-            header('Location: ../view/EditarMenu.php?id=' . $id . '&error');
+            header('Location: ../view/EditarCategoria.php?id=' . $id . '&error');
         }
     }
 }

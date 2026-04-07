@@ -44,7 +44,9 @@ if (isset($_GET['id'])) {
 
             <div class="form-group">
                 <label for="nombre_categoria">Nombre de la Categoría</label>
-                <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="Nombre de la categoría" value="<?= $categoria['nombre_categoria'] ?>" required pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios.">
+                <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="Nombre de la categoría" value="<?= $categoria['nombre_categoria'] ?>" required pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo se permiten letras y espacios.">
+                <label for="imagen_categoria">Subir imagen:</label>
+                <input type="file" name="imagen_categoria" id="imagen_categoria">
             </div>
 
            <button type="submit" class="btn btn-warning px-5">Actualizar</button>
