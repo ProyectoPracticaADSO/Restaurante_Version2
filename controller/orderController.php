@@ -51,9 +51,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'eliminar' && isset($_GET['id']
         header('Location: ../view/VerPedido.php?success=eliminado&id=' . $idMesa);
     } else {
         header('Location: ../view/VerPedido.php?id=' . $idMesa . '&error');
-
     }
-
 }
 if (isset($_GET['action']) && $_GET['action'] == 'eliminarcocina' && isset($_GET['id'])) {
 
@@ -62,7 +60,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'eliminarcocina' && isset($_GET
     $resultado = $order->deleteOrder($idMesa);
 
     if ($resultado) {
-        header('Location: http://localhost/restaurante/view/VerPedidosCocina.php? &id=' . $idMesa);
+        header('Location: ../view/VerPedidosCocina.php?success=eliminado&id=' . $idMesa);
     } else {
         header('Location: ../view/VerPedido.php?id=' . $idMesa . '&error');
     }

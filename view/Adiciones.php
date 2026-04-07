@@ -28,8 +28,7 @@ $products = $inventory->getInventory();
         </header>
 
         <div class="search-bar">
-            <input type="text" placeholder="Buscar">
-            <i class="fa fa-search"></i>
+            <input type="text" id="inputBusqueda" placeholder="Buscar">
 
             <div class="form-row">
                 <div class="button-container col-md-3">
@@ -85,6 +84,27 @@ $products = $inventory->getInventory();
             document.querySelectorAll('.additions-checkbox').forEach(function(checkbox) {
                 if (selectedAdditionsIds.includes(checkbox.value)) {
                     checkbox.checked = true;
+                }
+            });
+        });
+
+        // Escuchar lo que el usuario escribe en el input de búsqueda
+        document.getElementById('inputBusqueda').addEventListener('keyup', function() {
+            // Convertimos la búsqueda a minúsculas para que no importe si escriben "Tomate" o "tomate"
+            let filtro = this.value.toLowerCase();
+
+            // Obtenemos todas las filas de la tabla de productos
+            let filas = document.querySelectorAll('#tbl_productos tr');
+
+            filas.forEach(fila => {
+                // Obtenemos el texto de la primera columna (Descripción)
+                let descripcion = fila.querySelector('td:first-child').textContent.toLowerCase();
+
+                // Si la descripción contiene lo que buscamos, mostramos la fila, si no, la ocultamos
+                if (descripcion.includes(filtro)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
                 }
             });
         });
