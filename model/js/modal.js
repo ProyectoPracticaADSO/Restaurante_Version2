@@ -77,8 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
   eliminarBtns.forEach(function (btn) {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
-      const id = btn.getAttribute("data-id");
-      const url = `../controller/userController.php?action=eliminar&id=${id}`;
+      //const id = btn.getAttribute("data-id");
+      //const url = `../controller/userController.php?action=eliminar&id=${id}`;
+
+      // Obtener la URL directamente del atributo data-url para eliminar Usuarios y Clientes
+      const url = btn.getAttribute("data-url");
       showModalConfirm(url);
     });
   });
