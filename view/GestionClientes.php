@@ -91,6 +91,7 @@ $clientes = $customer->getCustomer();
 
                 <a href="#" class="eliminar-btn"
                   data-id="<?= $cliente['id'] ?>"
+                  data-url="../controller/customerController.php?action=eliminar&id=<?= $cliente['id'] ?>"
                   data-nombre="<?= $cliente['nombre_cliente'] ?>" title="Eliminar">
                   <i class="fa fa-trash"></i>
                 </a>
