@@ -54,8 +54,8 @@ foreach (explode(',', $idAdiciones) as $idAdicion) {
   <div class="container-fluid mt-5">
     <div class="container">
 
-
       <a href="./GestionMenu.php?id=<?= $idCategoria ?>" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
+
       <h2 class="text-center mb-4">Editar producto</h2>
 
       <?php
