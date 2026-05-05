@@ -12,6 +12,7 @@ $plate = new Plate();
 if (isset($_GET['id'])) {
   $idPlate = $_GET['id'];
   $plate = $plate->getPlateById($idPlate);
+  $idCategoria = $plate['fk_id_categorias'];
 }
 
 $inventory = new Inventory();
@@ -52,8 +53,9 @@ foreach (explode(',', $idAdiciones) as $idAdicion) {
 <body>
   <div class="container-fluid mt-5">
     <div class="container">
-      <?php include '../view/bases/base4.php'; ?>
 
+
+      <a href="./GestionMenu.php?id=<?= $idCategoria ?>" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
       <h2 class="text-center mb-4">Editar producto</h2>
 
       <?php
@@ -159,6 +161,10 @@ foreach (explode(',', $idAdiciones) as $idAdicion) {
         <div class="button-container col-md-12">
           <button type="submit">Modificar</button>
         </div>
+
+        <!-- <div class="button-container col-md-12">
+          <button type="submit">Regresar</button>
+        </div> -->
       </form>
     </div>
   </div>
