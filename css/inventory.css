@@ -1,53 +1,52 @@
 body {
-  background-color: #f8f9fa; 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333333;
   background-image: url("https://cdn.glitch.global/fc6de9c3-3b09-4138-abd9-3523a30daef9/Copia%20de%20Copia%20de%20Presentaci%C3%B3n%20Plan%20de%20Negocio%20Restaurante%20Profesional%20Amarillo%20(4).png?v=1745979748127");
-  padding-top:80px;
-  padding-bottom:80px;
-     }
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
 
-    .action-icons a {
-      margin: 0 5px;
-      color: inherit;
-      transition: color 0.3s;
-    }
-    .action-icons a .fa-user-pen {
-      color: #fd7e14; /* Naranja */
-    }
-    .action-icons a .fa-user-pen:hover {
-      color: #e8590c; /* Naranja más oscuro */
-    }
-    .action-icons a .fa-trash {
-      color: #dc3545; /* Rojo */
-    }
-    .action-icons a .fa-trash:hover {
-      color: #a71d2a; /* Rojo más oscuro */
-    }
-    .back-icon {
-      color: #212529;
-      font-size: 1.5rem;
-    }
-    .btn-add-user {
-      margin-left: 10px;
-    }
-    .search-bar {
-      position: relative;
-      margin-bottom: 15px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 8px 40px 8px 10px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .search-bar i {
-      position: absolute;
-      right: 10px;
-      top: 9px;
-      color: #aaa;
-    }
-
+.action-icons a {
+  margin: 0 5px;
+  color: inherit;
+  transition: color 0.3s;
+}
+.action-icons a .fa-user-pen {
+  color: #fd7e14; /* Naranja */
+}
+.action-icons a .fa-user-pen:hover {
+  color: #e8590c; /* Naranja más oscuro */
+}
+.action-icons a .fa-trash {
+  color: #dc3545; /* Rojo */
+}
+.action-icons a .fa-trash:hover {
+  color: #a71d2a; /* Rojo más oscuro */
+}
+.back-icon {
+  color: #212529;
+  font-size: 1.5rem;
+}
+.btn-add-user {
+  margin-left: 10px;
+}
+.search-bar {
+  position: relative;
+  margin-bottom: 15px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 8px 40px 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.search-bar i {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  color: #aaa;
+}
 
 .container {
   max-width: 1100px;
@@ -81,7 +80,9 @@ h1 {
   padding: 10px 25px;
   font-weight: 600;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   text-decoration: none;
   display: inline-block;
 }
@@ -100,7 +101,8 @@ h1 {
   color: white;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   vertical-align: middle;
 }
 
@@ -125,10 +127,11 @@ h1 {
 }
 
 /* Si estás usando posición fija para header o footer */
-header.fixed-top, footer.fixed-bottom {
+header.fixed-top,
+footer.fixed-bottom {
   z-index: 1000;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .table {
@@ -172,36 +175,35 @@ header.fixed-top, footer.fixed-bottom {
   cursor: pointer;
 }
 
-
 /*Para que el modal eliminar funcione*/
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none; /* Oculto por defecto */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* Oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 /* Clase que activamos con JavaScript */
 .modal-overlay.active {
-    display: flex;
+  display: flex;
 }
 
 .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
 }
 
 .eliminar-btn i {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 /*Modales para producto más viejo, próximo a vencer y total inventario*/

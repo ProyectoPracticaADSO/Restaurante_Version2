@@ -11,24 +11,43 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Categoría</title>
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/inventory.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
 
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 </head>
+
+<!-- CSS para el ícono de regreso -->
+<style>
+    .back-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .back-icon i {
+        font-size: 24px;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+</style>
+
 <body>
 
     <div class="container mt-5 position-relative">
-        <?php include '../view/bases/base4.php'; ?>
+
+
+        <a href="./GestionCategorias.php" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
 
         <!-- HEADER -->
         <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
@@ -49,7 +68,7 @@ if (isset($_GET['id'])) {
                 <input type="file" name="imagen_categoria" id="imagen_categoria">
             </div>
 
-           <button type="submit" class="btn btn-warning px-5">Actualizar</button>
+            <button type="submit" class="btn btn-warning px-5">Actualizar</button>
         </form>
     </div>
 
@@ -62,4 +81,5 @@ if (isset($_GET['id'])) {
     <?php include '../view/bases/base1.php'; ?>
 
 </body>
+
 </html>

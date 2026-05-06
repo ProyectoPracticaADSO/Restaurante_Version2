@@ -1,0 +1,125 @@
+<?php
+include_once '../model/customer.php';
+$customer = new Customer();
+$clientes = $customer->getCustomer();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Clientes</title>
+  <link rel="stylesheet" href="../css/inventory.css">
+  <link rel="stylesheet" href="../css/modal.css" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
+</head>
+
+<body>
+  <div class="container mt-5 position-relative">
+    <?php include '../view/bases/base4.php'; ?>
+
+    <!-- MENSAJES ALERTIFY -->
+    <?php if (isset($_GET['success'])): ?>
+      <script>
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.set('notifier', 'delay', 3);
+
+        <?php if ($_GET['success'] === 'creado'): ?>
+          alertify.success('Cliente creado correctamente');
+        <?php elseif ($_GET['success'] === 'actualizado'): ?>
+          alertify.success('Cliente actualizado correctamente');
+        <?php elseif ($_GET['success'] === 'eliminado'): ?>
+          alertify.success('Cliente eliminado correctamente');
+        <?php endif; ?>
+
+        if (window.history.replaceState) {
+          const url = new URL(window.location);
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          window.history.replaceState({}, document.title, url.pathname);
+        }
+      </script>
+    <?php endif; ?>
+
+    <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <div class="d-flex align-items-center mb-3 mb-md-0">
+        <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png" style="height: 40px;">
+        <h1 class="display-6 mb-0 ml-2">Clientes</h1>
+
+        <div class="btn-group ml-3">
+          <a href="AgregarCliente.php" class="btn btn-outline-secondary">Agregar Cliente</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- BUSCADOR -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar cliente...">
+      <i class="fa fa-search"></i>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-wrapper table-responsive">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($clientes as $cliente) : ?>
+            <tr>
+              <td><?= $cliente['id'] ?></td>
+              <td><?= $cliente['nombre_cliente'] ?></td>
+              <td><?= $cliente['cedula_cliente'] ?></td>
+              <td><?= $cliente['numero_cliente'] ?></td>
+              <td><?= $cliente['correo_cliente'] ?></td>
+              <td class="action-icons">
+                <a href="EditarCliente.php?id=<?= $cliente['id'] ?>" title="Editar">
+                  <i class="fa-solid fa-user-pen"></i>
+                </a>
+
+                <a href="#" class="eliminar-btn"
+                  data-id="<?= $cliente['id'] ?>"
+                  data-url="../controller/customerController.php?action=eliminar&id=<?= $cliente['id'] ?>"
+                  data-nombre="<?= $cliente['nombre_cliente'] ?>" title="Eliminar">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal-confirm" class="modal-overlay">
+    <div class="modal-content">
+      <h5>Confirmar eliminación</h5>
+      <p>¿Está seguro de eliminar este cliente?</p>
+      <div class="text-right">
+        <a id="btn-confirm" class="btn btn-danger">Eliminar</a>
+        <button id="btn-cancel" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../model/js/modal.js"></script>
+  <script src="../model/js/searchGestionUsuarios.js"></script>
+
+  <?php include '../view/bases/base2.php'; ?>
+  <?php include '../view/bases/base1.php'; ?>
+</body>
+
+</html>

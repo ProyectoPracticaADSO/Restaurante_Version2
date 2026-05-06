@@ -101,6 +101,7 @@ $usuarios = $user->getUser();
                 </a>
                 <a href="#" class="eliminar-btn"
                   data-id="<?= $usuario['id'] ?>"
+                  data-url="../controller/userController.php?action=eliminar&id=<?= $usuario['id'] ?>"
                   data-nombre="<?= $usuario['nombre_usuario'] ?>" title="Eliminar">
                   <i class="fa fa-trash"></i>
                 </a>
