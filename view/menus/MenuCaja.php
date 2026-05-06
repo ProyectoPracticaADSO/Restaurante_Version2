@@ -23,9 +23,9 @@
 
     <section class="cards-grid">
       
-      <a href="../GestionCategorias.php" class="card">
+      <a href="../Facturas.php" class="card">
         <i class="fa-solid fa-money-bills"></i>
-        <h2>Facturas</h2>
+        <h2>Factura</h2>
       </a>
 
 
