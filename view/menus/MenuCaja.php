@@ -12,35 +12,39 @@
 </head>
 
 <body>
+  
+ 
+     <body class="admin-wrapper">
+  <main class="main-content">
+<header class="topbar">
+  <a href="../../index.php" class="back-icon-circle">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <h1>Menú Caja</h1>
+</header>
+
+    <section class="cards-grid">
+      
+      <a href="../Facturas.php" class="card">
+        <i class="fa-solid fa-money-bills"></i>
+        <h2>Factura</h2>
+      </a>
 
 
-    <body class="admin-wrapper">
-        <main class="main-content">
-            <header class="topbar">
-                <a href="../../index.php" class="back-icon-circle">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <h1>Menú Caja</h1>
-            </header>
+      <a href="pedidos.php" class="card">
+        <i class="fa-solid fa-user-group"></i>
+        <h2>Clientes</h2>
+      </a>
 
-            <section class="cards-grid">
-
-                <a href="../GestionCategorias.php" class="card">
-                    <i class="fa-solid fa-money-bills"></i>
-                    <h2>Facturas</h2>
-                </a>
-
-
-                <a href="../GestionClientes.php" class="card">
-                    <i class="fa-solid fa-user-group"></i>
-                    <h2>Clientes</h2>
-                </a>
-            </section>
-        </main>
-        <?php include '../bases/base2.php'; ?>
+      <a href="../gestionMesas.php" class="card">
+        <i class="fa-solid fa-house"></i>
+        <h2>Informes</h2>
+      </a>
+    </section>
+  </main>
+<?php include '../bases/base2.php'; ?>
 
 
 
-    </body>
-
+</body>
 </html>
