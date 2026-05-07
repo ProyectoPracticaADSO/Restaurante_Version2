@@ -50,7 +50,10 @@ if (isset($_GET['id'])) {
       <div class="d-flex align-items-center mb-3 mb-md-0">
         <img src="https://cdn.glitch.global/05dd2f16-2c70-4bf2-a8e5-35c1a876912e/logo.png?v=1740605968751" alt="Logo" style="height: 50px; margin-right: 10px;">
         <h1>Editar Productos <strong><?= $categoriaActual ?></strong></h1>
-        <a href="./GestionCategorias.php" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
+
+
+        <?php include '../view/bases/base6.php'; ?> <!-- Exclusivo para el backspace -->
+
       </div>
 
 

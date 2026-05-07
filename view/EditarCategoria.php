@@ -27,27 +27,10 @@ if (isset($_GET['id'])) {
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 </head>
 
-<!-- CSS para el ícono de regreso -->
-<style>
-    .back-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-
-    .back-icon i {
-        font-size: 24px;
-        color: #333;
-        transition: color 0.3s ease;
-    }
-</style>
-
 <body>
 
     <div class="container mt-5 position-relative">
-
-
-        <a href="./GestionCategorias.php" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
+        <?php include '../view/bases/base6.php'; ?> <!-- Exclusivo para el backspace -->
 
         <!-- HEADER -->
         <header class="d-flex justify-content-between align-items-center mb-4 flex-wrap">

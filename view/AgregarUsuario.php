@@ -21,13 +21,28 @@
     .ajs-message {
       top: -60px !important;
     }
+
+    /* Icono de regreso */
+    /* .back-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .back-icon i {
+      font-size: 24px;
+      color: #333;
+      transition: color 0.3s ease;
+    } */
   </style>
 </head>
 
 <body>
   <!-- Contenedor blanco principal -->
   <div class="container mt-5 position-relative">
-    <?php include '../view/bases/base4.php'; ?>
+    <!-- <a href="./GestionUsuarios.php" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a> -->
+    <?php include '../view/bases/base5.php'; ?> <!-- Exclusivo para el backspace -->
+
 
     <!--Mensaje para campos vacíos o cédula duplicada -->
     <?php
