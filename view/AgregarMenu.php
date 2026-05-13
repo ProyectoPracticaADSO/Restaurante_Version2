@@ -24,6 +24,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <div class="container mt-5">
+
         <a href="./GestionMenu.php?id=<?= $idCategoria ?>" class="back-icon"><i class="fa-solid fa-circle-arrow-left"></i></a>
         <h2 class="text-center mb-4">Nuevo producto</h2>
 
@@ -150,7 +151,7 @@ if (isset($_GET['id'])) {
 
                 // Guarda los IDs en un campo oculto si es necesario
                 document.getElementById('adiciones-ids').value = additionsIds;
-            }  
+            }
         });
 
         document.querySelector('form').addEventListener('submit', function(event) {
