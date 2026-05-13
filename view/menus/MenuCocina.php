@@ -26,7 +26,8 @@
 
       <section class="cards-grid">
 
-        <a href="../VerPedidosCocina.php" class="card">
+        <!-- <a href="../VerPedidosCocina.php" class="card"> -->
+        <a href="../VerPedido.php" class="card">
           <i class="fa-solid fa-receipt"></i>
           <h2>Ver pedidos</h2>
         </a>
