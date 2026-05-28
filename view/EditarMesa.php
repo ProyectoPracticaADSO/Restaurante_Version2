@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Mesa</title>
@@ -39,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <style>
         .btn-orange {
-            background-color: #f4a261; /* naranja suave */
+            background-color: #f4a261;
+            /* naranja suave */
             color: white;
             border: none;
         }
@@ -57,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <!-- Contenedor blanco principal -->
-<div class="container mt-5 position-relative">
-  <?php include '../view/bases/base4.php'; ?>
+    <div class="container mt-5 position-relative">
+        <?php include '../view/bases/base4.php'; ?>
 
         <h1 class="display-5 mb-0 mr-3">Editar Mesa</h1>
         <form method="POST">
@@ -73,12 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Disponible" <?= $mesa['estado'] === 'Disponible' ? 'selected' : '' ?>>Disponible</option>
                     <option value="Ocupada" <?= $mesa['estado'] === 'Ocupada' ? 'selected' : '' ?>>Ocupada</option>
                     <option value="Reservada" <?= $mesa['estado'] === 'Reservada' ? 'selected' : '' ?>>Reservada</option>
+
+                    <option value="PendientePago" <?= $mesa['estado'] === 'PendientePago' ? 'selected' : '' ?>>Pendiente de Pago</option>
                 </select>
             </div>
 
             <div class="mt-4">
-                   
-                     <button type="submit" class="btn btn-warning px-5">Guardar Cambios</button>
+
+                <button type="submit" class="btn btn-warning px-5">Guardar Cambios</button>
                 </button>
                 <a href="GestionMesas.php" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Cancelar
@@ -94,4 +98,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include '../view/bases/base2.php'; ?>
     <?php include '../view/bases/base1.php'; ?>
 </body>
+
 </html>
