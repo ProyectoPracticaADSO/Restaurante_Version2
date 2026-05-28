@@ -23,18 +23,18 @@
         <h1>Menú Caja</h1>
       </header>
 
-    <section class="cards-grid">
-      
-      <a href="../Facturas.php" class="card">
-        <i class="fa-solid fa-money-bills"></i>
-        <h2>Factura</h2>
-      </a>
+      <section class="cards-grid">
+
+        <a href="../Facturas.php" class="card">
+          <i class="fa-solid fa-money-bills"></i>
+          <h2>Factura</h2>
+        </a>
 
 
-      <a href="pedidos.php" class="card">
-        <i class="fa-solid fa-user-group"></i>
-        <h2>Clientes</h2>
-      </a>
+        <a href="../GestionClientes.php" class="card">
+          <i class="fa-solid fa-user-group"></i>
+          <h2>Clientes</h2>
+        </a>
 
         <!-- <a href="../../controller/reportController.php" class="card">
           <i class="fa-solid fa-house"></i>

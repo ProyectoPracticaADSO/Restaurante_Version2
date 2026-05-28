@@ -17,70 +17,8 @@ class Order extends ConnectionDB
 //         return $query->execute();
 //     }
 
-//     public function updateOrder($idUsuario, $idMesa, $pedidoCompleto)
-//     {
-//         $sql = "UPDATE pedidos SET
-//                 fk_id_usuario = :usuario,
-//                 pedido = :pedido
-//             WHERE fk_id_mesas = :mesa";
-
-//         $query = parent::connection()->prepare($sql);
-//         $query->bindParam(':usuario', $idUsuario);
-//         $query->bindParam(':mesa', $idMesa);
-//         $query->bindParam(':pedido', $pedidoCompleto);
 
 
-//         return $query->execute();
-//     }
-
-//     public function getOrder()
-//     {
-//         $query = parent::connection()->prepare("SELECT * FROM pedidos");
-//         $query->execute();
-//         $resultados = $query->fetchAll(PDO::FETCH_ASSOC);
-
-//         // Recorremos cada pedido para decodificar la columna 'pedido'
-//         foreach ($resultados as &$pedido) {
-//             if (isset($pedido['pedido'])) {
-//                 // Decodificar la columna 'pedido' (JSON) en un array asociativo
-//                 $pedido['pedido'] = json_decode($pedido['pedido'], true);
-//             }
-//         }
-
-//         return $resultados;
-//     }
-
-
-//     public function getOrderByMesa($id)
-//     {
-//         $query = parent::connection()->prepare("SELECT * FROM pedidos WHERE fk_id_mesas = :id");
-//         $query->bindParam(':id', $id);
-//         $query->execute();
-//         $resultados = $query->fetchAll(PDO::FETCH_ASSOC);
-
-//         // Recorremos cada pedido para decodificar la columna 'pedido'
-//         foreach ($resultados as &$pedido) {
-//             if (isset($pedido['pedido'])) {
-//                 // Decodificar la columna 'pedido' (JSON) en un array asociativo
-//                 $pedido['pedido'] = json_decode($pedido['pedido'], true);
-//             }
-//         }
-
-//         return $resultados;
-//     }
-
-//     public function deleteOrder($idMesa)
-//     {
-//         $sql = "DELETE FROM pedidos WHERE fk_id_mesas = :id";
-
-//         $query = parent::connection()->prepare($sql);
-//         $query->bindParam(':id', $idMesa);
-
-//         return $query->execute();
-//     }
-// }
-
-//SE ACTUALIZA EL MODELO (METODO) DE PEDIDOS PARA QUE SE PUEDA ASOCIAR A UNA MESA, UN USUARIO Y UN PEDIDO COMPLETO (JSON)
 {
 	public function insertOrder($id, $idUsuario, $idMesa, $pedidoCompleto)
 	{
@@ -190,5 +128,68 @@ class Order extends ConnectionDB
 			echo "Error: " . $e->getMessage();
 			return false;
 		}
+	}
+
+
+	public function updateOrder($idUsuario, $idMesa, $pedidoCompleto)
+	{
+		$sql = "UPDATE pedidos SET
+                fk_id_usuario = :usuario,
+                pedido = :pedido
+            WHERE fk_id_mesas = :mesa";
+
+		$query = parent::connection()->prepare($sql);
+		$query->bindParam(':usuario', $idUsuario);
+		$query->bindParam(':mesa', $idMesa);
+		$query->bindParam(':pedido', $pedidoCompleto);
+
+
+		return $query->execute();
+	}
+
+	public function getOrder()
+	{
+		$query = parent::connection()->prepare("SELECT * FROM pedidos");
+		$query->execute();
+		$resultados = $query->fetchAll(PDO::FETCH_ASSOC);
+
+		// Recorremos cada pedido para decodificar la columna 'pedido'
+		foreach ($resultados as &$pedido) {
+			if (isset($pedido['pedido'])) {
+				// Decodificar la columna 'pedido' (JSON) en un array asociativo
+				$pedido['pedido'] = json_decode($pedido['pedido'], true);
+			}
+		}
+
+		return $resultados;
+	}
+
+
+	public function getOrderByMesa($id)
+	{
+		$query = parent::connection()->prepare("SELECT * FROM pedidos WHERE fk_id_mesas = :id");
+		$query->bindParam(':id', $id);
+		$query->execute();
+		$resultados = $query->fetchAll(PDO::FETCH_ASSOC);
+
+		// Recorremos cada pedido para decodificar la columna 'pedido'
+		foreach ($resultados as &$pedido) {
+			if (isset($pedido['pedido'])) {
+				// Decodificar la columna 'pedido' (JSON) en un array asociativo
+				$pedido['pedido'] = json_decode($pedido['pedido'], true);
+			}
+		}
+
+		return $resultados;
+	}
+
+	public function deleteOrder($idMesa)
+	{
+		$sql = "DELETE FROM pedidos WHERE fk_id_mesas = :id";
+
+		$query = parent::connection()->prepare($sql);
+		$query->bindParam(':id', $idMesa);
+
+		return $query->execute();
 	}
 }
