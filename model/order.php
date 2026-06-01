@@ -1,24 +1,6 @@
 <?php
 require_once "../config/connection.php";
 class Order extends ConnectionDB
-// {
-//     public function insertOrder($id, $idUsuario, $idMesa, $pedidoCompleto)
-//     {
-//         $sql = "INSERT INTO pedidos (id, fk_id_usuario, fk_id_mesas, pedido) 
-//         VALUES (:id, :usuario, :mesa, :pedido)";
-
-//         $query = parent::connection()->prepare($sql);
-//         $query->bindParam(':id', $id);
-//         $query->bindParam(':usuario', $idUsuario);
-//         $query->bindParam(':mesa', $idMesa);
-//         $query->bindParam(':pedido', $pedidoCompleto);
-
-
-//         return $query->execute();
-//     }
-
-
-
 {
 	public function insertOrder($id, $idUsuario, $idMesa, $pedidoCompleto)
 	{
@@ -149,7 +131,16 @@ class Order extends ConnectionDB
 
 	public function getOrder()
 	{
-		$query = parent::connection()->prepare("SELECT * FROM pedidos");
+		// $query = parent::connection()->prepare("SELECT * FROM pedidos");
+		$query = parent::connection()->prepare("
+	SELECT *
+	FROM pedidos
+	WHERE estado IN (
+		'abierto',
+		'preparacion',
+		'entregado'
+	)
+");
 		$query->execute();
 		$resultados = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -167,21 +158,41 @@ class Order extends ConnectionDB
 
 	public function getOrderByMesa($id)
 	{
-		$query = parent::connection()->prepare("SELECT * FROM pedidos WHERE fk_id_mesas = :id");
+		// Buscar únicamente pedidos activos de la mesa
+		$query = parent::connection()->prepare("
+		SELECT *
+		FROM pedidos
+		WHERE fk_id_mesas = :id
+		AND estado IN (
+			'abierto',
+			'preparacion',
+			'entregado'
+		)
+	");
+
 		$query->bindParam(':id', $id);
+
 		$query->execute();
+
 		$resultados = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		// Recorremos cada pedido para decodificar la columna 'pedido'
+		// Decodificar JSON del pedido
 		foreach ($resultados as &$pedido) {
+
 			if (isset($pedido['pedido'])) {
-				// Decodificar la columna 'pedido' (JSON) en un array asociativo
-				$pedido['pedido'] = json_decode($pedido['pedido'], true);
+
+				$pedido['pedido'] = json_decode(
+					$pedido['pedido'],
+					true
+				);
 			}
 		}
 
 		return $resultados;
 	}
+
+
+
 
 	public function deleteOrder($idMesa)
 	{
