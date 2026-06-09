@@ -59,6 +59,17 @@ foreach ($pedidos as $pedido) {
 							<h2 class="h4 text-primary">Mesa #<?= $mesa['numero_mesa'] ?? $idMesa ?></h2>
 						</div>
 
+						<div class="text-center mb-3">
+							<h4 class="font-weight-bold mb-1">
+								RESTAURANTE
+							</h4>
+
+							<small class="text-muted">
+								Fecha:
+								<?= date('d/m/Y H:i') ?>
+							</small>
+						</div>
+
 						<div class="order-list">
 							<?php foreach ($pedidos as $pedido) : ?>
 								<?php foreach ($pedido['pedido'] as $detalle) :
@@ -71,8 +82,16 @@ foreach ($pedidos as $pedido) {
 								?>
 									<div class="order-item border-bottom py-2 d-flex justify-content-between align-items-center">
 										<div>
-											<p class="mb-0 font-weight-bold"><?= $plato['nombre_producto'] ?? 'Producto no encontrado' ?> <span class="text-muted">x<?= $cant ?></span></p>
-											<small class="badge badge-secondary"><?= $cat['nombre_categoria'] ?? 'General' ?></small>
+											<!-- <p class="mb-0 font-weight-bold"><?= $plato['nombre_producto'] ?? 'Producto no encontrado' ?> <span class="text-muted">x<?= $cant ?></span></p>
+											<small class="badge badge-secondary"><?= $cat['nombre_categoria'] ?? 'General' ?></small> -->
+											<p class="mb-0 font-weight-bold">
+												<?= $plato['nombre_producto'] ?>
+											</p>
+
+											<small class="text-muted">
+												<?= $cant ?> × $<?= number_format($precio, 0, ',', '.') ?>
+											</small>
+
 										</div>
 										<div class="text-right">
 											<div class="text-muted small">$<?= number_format($precio, 0, ',', '.') ?></div>
@@ -88,12 +107,12 @@ foreach ($pedidos as $pedido) {
 						$total = $subtotalMesa + $iva;
 						?>
 
-						<div class="factura-resumen mt-4 p-3 bg-light rounded">
+						<div class="factura-resumen mt-4 p-4 border rounded shadow-sm ">
 							<div class="d-flex justify-content-between small"><span>Subtotal:</span><span>$<?= number_format($subtotalMesa, 0, ',', '.') ?></span></div>
 							<div class="d-flex justify-content-between small text-muted"><span>IVA (19%):</span><span>$<?= number_format($iva, 0, ',', '.') ?></span></div>
 							<hr class="my-2">
 							<div class="d-flex justify-content-between align-items-center">
-								<span class="h5 m-0 font-weight-bold">TOTAL:</span>
+								<span class="h4 m-0 font-weight-bold text-dark">TOTAL A PAGAR:</span>
 								<span class="h4 m-0 text-success font-weight-bold">$<?= number_format($total, 0, ',', '.') ?></span>
 							</div>
 						</div>
@@ -168,6 +187,15 @@ foreach ($pedidos as $pedido) {
 				.imprimiendo .btn,
 				.imprimiendo .row.mt-4 {
 					display: none !important;
+				}
+
+				body {
+					background: white !important;
+				}
+
+				.mesa-card {
+					box-shadow: none !important;
+					border: 1px solid #ccc !important;
 				}
 			}
 		</style>
