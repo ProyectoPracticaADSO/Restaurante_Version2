@@ -15,6 +15,7 @@ try {
 
   $idMesa = $_POST['idMesa'];
   $efectivo = $_POST['efectivo'];
+  $metodoPago = $_POST['metodoPago'];
 
   $factura = new Factura();
   $order = new Order();
@@ -51,7 +52,7 @@ try {
     $subtotal,
     $iva,
     $total,
-    'Efectivo',
+    $metodoPago,
     $efectivo,
     $cambio
   );

@@ -26,6 +26,8 @@ foreach ($pedidos as $pedido) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Gestión de Pedidos</title>
 	<link rel="stylesheet" href="../css/inventory.css">
+	<link rel="stylesheet" href="../css/alertify.min.css">
+	<link rel="stylesheet" href="../css/themes/default.min.css">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -98,7 +100,7 @@ foreach ($pedidos as $pedido) {
 						<div class="row mt-4">
 							<div class="col-4"><a href="EditarPedido.php?id=<?= $idMesa ?>" class="btn btn-outline-warning btn-block font-weight-bold">Editar</a></div>
 							<div class="col-4"><button onclick="confirmarEliminacion(<?= $idMesa ?>)" class="btn btn-outline-danger btn-block font-weight-bold">Eliminar</button></div>
-							<div class="col-4"><button class="btn btn-success btn-block font-weight-bold" onclick="abrirModalPago(<?= $idMesa ?>, <?= $total ?>)">Facturar</button></div>
+							<div class="col-4"><button class="btn btn-success btn-block font-weight-bold" onclick="abrirModalPago(<?= $idMesa ?>, <?= $mesa['numero_mesa'] ?? $idMesa ?>, <?= $total ?>)">Facturar</button></div>
 						</div>
 					</div>
 				<?php endforeach; ?>
@@ -119,200 +121,191 @@ foreach ($pedidos as $pedido) {
 				<div class="modal-body text-center">
 					<h4 class="mb-4">Total: <strong id="modalTotalTexto"></strong></h4>
 					<div class="form-group text-left">
-						<label>Efectivo Recibido:</label>
+						<label>Valor Recibido:</label>
 						<input type="number" id="efectivoRecibido" class="form-control form-control-lg" oninput="calcularCambio()">
+
+						<div class="form-group text-left mt-3">
+							<label>Método de Pago:</label>
+
+							<select id="metodoPago" class="form-control">
+								<option value="Efectivo">Efectivo</option>
+								<option value="Transferencia">Transferencia</option>
+								<option value="Tarjeta">Tarjeta</option>
+							</select>
+
+						</div>
+						<div class="h3 p-3 bg-light rounded"><span id="cambioTexto" class="font-weight-bold">Cambio: $0</span></div>
 					</div>
-					<div class="h3 p-3 bg-light rounded"><span id="cambioTexto" class="font-weight-bold">Cambio: $0</span></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-success btn-lg" onclick="finalizarYImprimir()">Confirmar e Imprimir</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-success btn-lg" onclick="finalizarYImprimir()">Confirmar e Imprimir</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<style>
-		@media print {
-			body * {
-				visibility: hidden;
+		<style>
+			@media print {
+				body * {
+					visibility: hidden;
+				}
+
+				.imprimiendo,
+				.imprimiendo * {
+					visibility: visible;
+				}
+
+				.imprimiendo {
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					margin: 0;
+					padding: 0;
+				}
+
+				.imprimiendo .btn,
+				.imprimiendo .row.mt-4 {
+					display: none !important;
+				}
+			}
+		</style>
+
+		<script>
+			let totalActual = 0;
+			let mesaIdActual = "";
+
+			function confirmarEliminacion(id) {
+				if (confirm('¿Seguro que deseas eliminar esta mesa?')) {
+					window.location.href = '../controller/deleteOrder.php?id=' + id;
+				}
 			}
 
-			.imprimiendo,
-			.imprimiendo * {
-				visibility: visible;
+			function abrirModalPago(idMesa, numeroMesa, total) {
+				totalActual = total;
+				mesaIdActual = 'mesa-' + idMesa;
+				document.getElementById('modalMesaId').innerText = numeroMesa;
+				document.getElementById('modalTotalTexto').innerText = '$' + total.toLocaleString('es-CO');
+				document.getElementById('efectivoRecibido').value = '';
+				document.getElementById('cambioTexto').innerText = 'Cambio: $0';
+				$('#modalPago').modal('show');
 			}
 
-			.imprimiendo {
-				position: absolute;
-				left: 0;
-				top: 0;
-				width: 100%;
-				margin: 0;
-				padding: 0;
+			function calcularCambio() {
+				let efectivo = parseFloat(document.getElementById('efectivoRecibido').value) || 0;
+				let cambio = efectivo - totalActual;
+				let texto = document.getElementById('cambioTexto');
+
+				if (efectivo === 0) {
+					texto.innerText = "Cambio: $0";
+					texto.className = "font-weight-bold text-dark";
+				} else if (cambio < 0) {
+					texto.innerText = "Faltan: $" + Math.abs(cambio).toLocaleString('es-CO');
+					texto.className = "font-weight-bold text-danger";
+				} else {
+					texto.innerText = "Cambio: $" + cambio.toLocaleString('es-CO');
+					texto.className = "font-weight-bold text-success";
+				}
 			}
 
-			.imprimiendo .btn,
-			.imprimiendo .row.mt-4 {
-				display: none !important;
-			}
-		}
-	</style>
+			function finalizarYImprimir() {
 
-	<script>
-		let totalActual = 0;
-		let mesaIdActual = "";
+				// Obtiene el valor ingresado en el campo "Efectivo recibido"
+				// Si está vacío o no es válido, toma 0
+				let efectivo = parseFloat(document.getElementById('efectivoRecibido').value) || 0;
+				const metodoPago = document.getElementById('metodoPago').value;
+				// Validación: el dinero recibido debe ser suficiente para cubrir el total
+				if (efectivo < totalActual) {
+					alert("El efectivo recibido es menor al total.");
+					return;
+				}
 
-		function confirmarEliminacion(id) {
-			if (confirm('¿Seguro que deseas eliminar esta mesa?')) {
-				window.location.href = '../controller/deleteOrder.php?id=' + id;
-			}
-		}
+				// Obtiene el ID de la mesa eliminando el prefijo "mesa-"
+				// Ejemplo: "mesa-84" => "84"
+				const idMesa = mesaIdActual.replace('mesa-', '');
 
-		function abrirModalPago(idMesa, total) {
-			totalActual = total;
-			mesaIdActual = 'mesa-' + idMesa;
-			document.getElementById('modalMesaId').innerText = idMesa;
-			document.getElementById('modalTotalTexto').innerText = '$' + total.toLocaleString('es-CO');
-			document.getElementById('efectivoRecibido').value = '';
-			document.getElementById('cambioTexto').innerText = 'Cambio: $0';
-			$('#modalPago').modal('show');
-		}
+				// Envía la información al controlador de facturación
+				fetch('../controller/facturaController.php', {
 
-		function calcularCambio() {
-			let efectivo = parseFloat(document.getElementById('efectivoRecibido').value) || 0;
-			let cambio = efectivo - totalActual;
-			let texto = document.getElementById('cambioTexto');
+						// Tipo de petición HTTP
+						method: 'POST',
 
-			if (efectivo === 0) {
-				texto.innerText = "Cambio: $0";
-				texto.className = "font-weight-bold text-dark";
-			} else if (cambio < 0) {
-				texto.innerText = "Faltan: $" + Math.abs(cambio).toLocaleString('es-CO');
-				texto.className = "font-weight-bold text-danger";
-			} else {
-				texto.innerText = "Cambio: $" + cambio.toLocaleString('es-CO');
-				texto.className = "font-weight-bold text-success";
-			}
-		}
+						// Indica que se enviarán datos tipo formulario
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
 
-		//function finalizarYImprimir() {
-		// let efectivo = parseFloat(document.getElementById('efectivoRecibido').value) || 0;
+						// Datos enviados al controlador
+						body: new URLSearchParams({
 
-		// if (efectivo < totalActual) {
-		//     alert("El efectivo recibido es menor al total.");
-		//     return;
-		// }
+							// ID de la mesa que se va a facturar
+							idMesa: idMesa,
 
-		// // Cerramos modal para preparar la vista
-		// $('#modalPago').modal('hide');
+							// Valor recibido del cliente
+							efectivo: efectivo
 
-		// // Marcamos la mesa específica para imprimir
-		// let elementoMesa = document.getElementById(mesaIdActual);
-		// elementoMesa.classList.add('imprimiendo');
+								// Método de pago seleccionado
+								,
+							metodoPago: metodoPago
 
-		// // Ejecutamos impresión
-		// window.print();
-
-		// // Limpiamos la clase después de imprimir para volver a la normalidad
-		// elementoMesa.classList.remove('imprimiendo');
-
-		// Aquí podrías agregar un redireccionamiento al controlador para cerrar el pedido en BD
-		// window.location.href = '../controller/closeOrder.php?id=' + mesaIdActual.replace('mesa-', '');
-		//}//
-
-		function finalizarYImprimir() {
-
-			// Obtiene el valor ingresado en el campo "Efectivo recibido"
-			// Si está vacío o no es válido, toma 0
-			let efectivo = parseFloat(document.getElementById('efectivoRecibido').value) || 0;
-
-			// Validación: el dinero recibido debe ser suficiente para cubrir el total
-			if (efectivo < totalActual) {
-				alert("El efectivo recibido es menor al total.");
-				return;
-			}
-
-			// Obtiene el ID de la mesa eliminando el prefijo "mesa-"
-			// Ejemplo: "mesa-84" => "84"
-			const idMesa = mesaIdActual.replace('mesa-', '');
-
-			// Envía la información al controlador de facturación
-			fetch('../controller/facturaController.php', {
-
-					// Tipo de petición HTTP
-					method: 'POST',
-
-					// Indica que se enviarán datos tipo formulario
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					},
-
-					// Datos enviados al controlador
-					body: new URLSearchParams({
-
-						// ID de la mesa que se va a facturar
-						idMesa: idMesa,
-
-						// Valor recibido del cliente
-						efectivo: efectivo
+						})
 
 					})
 
-				})
+					// Convierte la respuesta del controlador a JSON
+					.then(response => response.json())
 
-				// Convierte la respuesta del controlador a JSON
-				.then(response => response.json())
+					// Procesa la respuesta recibida
+					.then(data => {
 
-				// Procesa la respuesta recibida
-				.then(data => {
+						// Si ocurrió un error en el backend
+						if (!data.success) {
 
-					// Si ocurrió un error en el backend
-					if (!data.success) {
+							alert(data.message || 'Error al generar factura');
 
-						alert(data.message || 'Error al generar factura');
+							return;
+						}
 
-						return;
-					}
+						// Cierra el modal de pago
+						$('#modalPago').modal('hide');
 
-					// Cierra el modal de pago
-					$('#modalPago').modal('hide');
+						// Obtiene el contenedor visual de la mesa
+						let elementoMesa = document.getElementById(mesaIdActual);
 
-					// Obtiene el contenedor visual de la mesa
-					let elementoMesa = document.getElementById(mesaIdActual);
+						// Agrega la clase especial para imprimir únicamente esa mesa
+						elementoMesa.classList.add('imprimiendo');
 
-					// Agrega la clase especial para imprimir únicamente esa mesa
-					elementoMesa.classList.add('imprimiendo');
+						// Lanza la impresión del navegador
+						window.print();
 
-					// Lanza la impresión del navegador
-					window.print();
+						// Elimina la clase después de imprimir
+						elementoMesa.classList.remove('imprimiendo');
 
-					// Elimina la clase después de imprimir
-					elementoMesa.classList.remove('imprimiendo');
+						// Mensaje de éxito
+						//alertify.success('Factura generada correctamente');
+						alert('Factura generada correctamente');
 
-					// Mensaje de éxito
-					alert('Factura generada correctamente');
+						// Recarga la página para reflejar:
+						// - Mesa liberada
+						// - Pedido facturado
+						// - Actualización de la vista
+						location.reload();
 
-					// Recarga la página para reflejar:
-					// - Mesa liberada
-					// - Pedido facturado
-					// - Actualización de la vista
-					location.reload();
+					})
 
-				})
+					// Captura errores de comunicación o errores inesperados
+					.catch(error => {
 
-				// Captura errores de comunicación o errores inesperados
-				.catch(error => {
+						// Muestra el error en consola para depuración
+						console.error(error);
 
-					// Muestra el error en consola para depuración
-					console.error(error);
+						// Mensaje para el usuario
+						alertify.error('Error al procesar la factura');
+						// alert('Error al procesar la factura');
 
-					// Mensaje para el usuario
-					alert('Error al procesar la factura');
-
-				});
-		}
-	</script>
+					});
+			}
+		</script>
 </body>
 
 </html>
