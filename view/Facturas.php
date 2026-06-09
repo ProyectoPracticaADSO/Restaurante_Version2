@@ -26,11 +26,12 @@ foreach ($pedidos as $pedido) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Gestión de Pedidos</title>
 	<link rel="stylesheet" href="../css/inventory.css">
-	<link rel="stylesheet" href="../css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
 	<link rel="stylesheet" href="../css/themes/default.min.css">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 	<script src="https://kit.fontawesome.com/tu-kit-id.js" crossorigin="anonymous"></script>
 
 <body class="bg-light">
@@ -282,14 +283,17 @@ foreach ($pedidos as $pedido) {
 						elementoMesa.classList.remove('imprimiendo');
 
 						// Mensaje de éxito
-						//alertify.success('Factura generada correctamente');
-						alert('Factura generada correctamente');
+						alertify.success('Factura generada correctamente');
+						setTimeout(() => {
+
+							location.reload();
+						}, 1500);
+						//alert('Factura generada correctamente');
 
 						// Recarga la página para reflejar:
 						// - Mesa liberada
 						// - Pedido facturado
 						// - Actualización de la vista
-						location.reload();
 
 					})
 
