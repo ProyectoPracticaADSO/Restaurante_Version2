@@ -140,7 +140,7 @@ class Factura extends ConnectionDB
 
       $conn->commit();
 
-      return true;
+      return $idFactura;
     } catch (Exception $e) {
 
       $conn->rollBack();

@@ -271,28 +271,36 @@ if (!$factura) {
     <div class="text-center mt-4 no-print">
 
       <button
-        class="btn btn-success"
-        onclick="window.print()">
+        class="btn btn-success mr-2"
+        onclick="imprimirFactura()">
 
         Imprimir Factura
 
       </button>
 
+      <a
+        href="Facturas.php"
+        class="btn btn-secondary">
+
+        Volver
+
+      </a>
+
     </div>
 
-  </div>
-
-  <script>
-    window.onload = function() {
-
-      setTimeout(() => {
+    <script>
+      function imprimirFactura() {
 
         window.print();
 
-      }, 500);
+      }
 
-    };
-  </script>
+      window.onafterprint = function() {
+
+        window.location.href = 'Facturas.php';
+
+      };
+    </script>
 
 </body>
 

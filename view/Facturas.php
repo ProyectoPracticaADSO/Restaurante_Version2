@@ -287,42 +287,31 @@ foreach ($pedidos as $pedido) {
 					// Procesa la respuesta recibida
 					.then(data => {
 
-						// Si ocurrió un error en el backend
 						if (!data.success) {
 
-							alert(data.message || 'Error al generar factura');
+							alertify.error(data.message || 'Error al generar factura');
 
 							return;
 						}
 
-						// Cierra el modal de pago
+						// Cerrar modal
 						$('#modalPago').modal('hide');
 
-						// Obtiene el contenedor visual de la mesa
-						let elementoMesa = document.getElementById(mesaIdActual);
-
-						// Agrega la clase especial para imprimir únicamente esa mesa
-						elementoMesa.classList.add('imprimiendo');
-
-						// Lanza la impresión del navegador
-						window.print();
-
-						// Elimina la clase después de imprimir
-						elementoMesa.classList.remove('imprimiendo');
+						// Abrir factura en nueva pestaña
+						window.open(
+							'../view/ImprimirFactura.php?id=' + data.idFactura,
+							'_blank'
+						);
 
 						// Mensaje de éxito
 						alertify.success('Factura generada correctamente');
+
+						// Esperar un momento para que se abra la factura
 						setTimeout(() => {
 
 							location.reload();
-						}, 1500);
-						//alert('Factura generada correctamente');
 
-						// Recarga la página para reflejar:
-						// - Mesa liberada
-						// - Pedido facturado
-						// - Actualización de la vista
-
+						}, 1000);
 					})
 
 					// Captura errores de comunicación o errores inesperados

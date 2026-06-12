@@ -58,7 +58,8 @@ try {
   );
 
   echo json_encode([
-    'success' => $resultado
+    'success' => true,
+    'idFactura' => $resultado
   ]);
 } catch (Exception $e) {
 
