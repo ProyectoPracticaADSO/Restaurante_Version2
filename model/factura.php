@@ -150,4 +150,49 @@ class Factura extends ConnectionDB
       return false;
     }
   }
+  /**
+   * Obtener detalle de productos facturados
+   */
+  public function getDetalleFactura($idFactura)
+  {
+    $query = parent::connection()->prepare("
+        SELECT
+            df.*,
+            m.nombre_producto
+        FROM detalle_factura df
+        INNER JOIN menu m
+            ON df.fk_id_producto = m.id
+        WHERE df.fk_id_factura = :id
+    ");
+
+    $query->bindParam(':id', $idFactura);
+
+    $query->execute();
+
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Obtener encabezado de factura
+   */
+  public function getFacturaById($idFactura)
+  {
+    $query = parent::connection()->prepare("
+        SELECT
+            f.*,
+            m.numero_mesa,
+            u.nombre_usuario
+        FROM facturas f
+        INNER JOIN mesas m
+            ON f.fk_id_mesa = m.id
+        INNER JOIN usuarios u
+            ON f.fk_id_usuario = u.id
+        WHERE f.id = :id
+    ");
+
+    $query->bindParam(':id', $idFactura);
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_ASSOC);
+  }
 }
