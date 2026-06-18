@@ -33,6 +33,18 @@
         .bg-custom-light {
             background-color: #f8f9fa;
         }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        }
     </style>
 </head>
 
@@ -46,48 +58,45 @@
             <h1 class="mb-0 h3"><i class="fa-solid fa-chart-pie text-primary"></i> Dashboard de Informes</h1>
         </div>
 
-        <div class="row g-4">
-            <div class="row g-3"> <!-- Contenedor de las tarjetas -->
+        <div class="row g-4 mb-4">
 
-                <!-- Tarjeta 1: Valorización del Kardex (Historial) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">Valorización (Kardex)</h6>
-                            <h2 class="display-6 fw-bold">
-                                $<?php echo number_format($valorTotalKardex, 0, ',', '.'); ?>
-                            </h2>
-                            <p class="small text-muted mb-0">Historial acumulado de movimientos registrados.</p>
-                        </div>
-                        <div class="card-footer bg-success text-white border-0">
-                            <i class="fa-solid fa-clock-rotate-left"></i> Auditoría Histórica
-                        </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted text-uppercase small fw-bold">Valorización (Kardex)</h6>
+                        <h2 class="display-6 fw-bold">
+                            $<?php echo number_format(isset($valorTotalKardex) ? $valorTotalKardex : 0, 0, ',', '.'); ?>
+                        </h2>
+                        <p class="small text-muted mb-0">Historial acumulado de movimientos registrados.</p>
+                    </div>
+                    <div class="card-footer bg-success text-white border-0">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Auditoría Histórica
                     </div>
                 </div>
+            </div>
 
-                <!-- Tarjeta 2: Capital Real (Inventario Actual) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">Capital Real en Bodega</h6>
-                            <h2 class="display-6 fw-bold">
-                                $<?php echo number_format($valorRealHoy, 0, ',', '.'); ?>
-                            </h2>
-                            <p class="small text-muted mb-0">Cálculo basado en stock físico actual.</p>
-                        </div>
-                        <div class="card-footer bg-primary text-white border-0">
-                            <i class="fa-solid fa-boxes-stacked"></i> Existencias Reales
-                        </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted text-uppercase small fw-bold">Capital Real en Bodega</h6>
+                        <h2 class="display-6 fw-bold">
+                            $<?php echo number_format(isset($valorRealHoy) ? $valorRealHoy : 0, 0, ',', '.'); ?>
+                        </h2>
+                        <p class="small text-muted mb-0">Cálculo basado en stock físico actual.</p>
+                    </div>
+                    <div class="card-footer bg-primary text-white border-0">
+                        <i class="fa-solid fa-boxes-stacked"></i> Existencias Reales
                     </div>
                 </div>
-
             </div>
 
             <div class="col-md-6 col-lg-4">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
                         <h6 class="text-muted text-uppercase small fw-bold">Pedidos de Hoy</h6>
-                        <h2 class="display-6 fw-bold text-primary"><?php echo $totalPedidos; ?></h2>
+                        <h2 class="display-6 fw-bold text-primary">
+                            <?php echo isset($totalPedidos) ? $totalPedidos : 0; ?>
+                        </h2>
                         <p class="small text-muted mb-0">Cantidad de órdenes registradas este día.</p>
                     </div>
                     <div class="card-footer bg-primary text-white border-0">
@@ -96,7 +105,42 @@
                 </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-md-6 col-lg-6">
+                <a href="../controller/clientesController.php" class="card border-0 shadow-sm h-100 card-link">
+                    <div class="card-body">
+                        <h6 class="text-muted text-uppercase small fw-bold">Clientes Registrados</h6>
+                        <h2 class="display-6 fw-bold text-success">
+                            <?php echo isset($totalClientes) ? $totalClientes : 0; ?>
+                        </h2>
+                        <p class="small text-muted mb-0">Total de clientes en la base de datos. ¡Haz clic para gestionar!</p>
+                    </div>
+                    <div class="card-footer bg-success text-white border-0 d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-users"></i> Administrar Clientes</span>
+                        <i class="fa-solid fa-chevron-right small"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                <a href="../controller/pedidosController.php" class="card border-0 shadow-sm h-100 card-link">
+                    <div class="card-body">
+                        <h6 class="text-muted text-uppercase small fw-bold">Facturas Emitidas</h6>
+                        <h2 class="display-6 fw-bold text-danger">
+                            <?php echo isset($totalFacturas) ? $totalFacturas : 0; ?>
+                        </h2>
+                        <p class="small text-muted mb-0">Total de comprobantes basados en pedidos. ¡Haz clic para ver!</p>
+                    </div>
+                    <div class="card-footer bg-danger text-white border-0 d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-file-invoice-dollar"></i> Módulo de Facturación</span>
+                        <i class="fa-solid fa-chevron-right small"></i>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-12">
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white py-3 border-bottom">
@@ -114,7 +158,7 @@
                                 <tbody>
                                     <?php
                                     $contadorTop = 0;
-                                    if (isset($productosTop) && $productosTop):
+                                    if (isset($productosTop) && $productosTop instanceof PDOStatement):
                                         while ($row = $productosTop->fetch(PDO::FETCH_ASSOC)):
                                             $contadorTop++; ?>
                                             <tr>
@@ -139,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white py-3 border-bottom">
                         <h5 class="mb-0 fw-bold text-danger">
                             <i class="fa-solid fa-triangle-exclamation"></i> Próximos Vencimientos
@@ -157,9 +201,9 @@
                                 <tbody>
                                     <?php
                                     $contadorVenc = 0;
-                                    $fuenteVencimiento = isset($datosVencimiento) ? $datosVencimiento : (isset($datos) ? $datos : null);
+                                    $fuenteVencimiento = isset($datosVencimiento) ? $datosVencimiento : null;
 
-                                    if ($fuenteVencimiento):
+                                    if ($fuenteVencimiento && $fuenteVencimiento instanceof PDOStatement):
                                         while ($prod = $fuenteVencimiento->fetch(PDO::FETCH_ASSOC)):
                                             $contadorVenc++; ?>
                                             <tr>
@@ -188,6 +232,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

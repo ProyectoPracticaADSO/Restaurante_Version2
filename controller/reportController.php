@@ -1,55 +1,59 @@
 <?php
-
-require_once '../model/report.php';
-
 class ReportController
 {
-    private $modelo;
-    private $db;
+    private PDO $db;
 
-    public function __construct($connection)
+    public function __construct(PDO $db)
     {
-        $this->db = $connection;
-        $this->modelo = new Report($this->db);
+        $this->db = $db;
     }
 
     public function index()
     {
-        $reporte = new Report($this->db);
+        // 1. Inicializamos todas las variables para evitar el error de "Undefined variable"
+        $valorTotalKardex = 0;
+        $valorRealHoy = 0;
+        $totalPedidos = 0;
+        $totalClientes = 0;
+        $totalFacturas = 0;
+        $productosTop = null;
+        $datosVencimiento = null;
 
-        // --- DATOS FINANCIEROS Y KARDEX ---
-        // Valor histórico/acumulado del Kardex
-        $valorTotalKardex = $reporte->obtenerValorTotalInventario();
+        // 2. Instanciamos el modelo de reportes de manera segura
+        if (class_exists('Report')) {
+            $reporte = new Report($this->db);
 
-        // Valor real de lo que hay en estantes hoy (La nueva función)
-        $valorRealHoy = $reporte->obtenerValorRealProductos();
+            // Carga de datos del Kardex e Inventario
+            $valorTotalKardex = method_exists($reporte, 'obtenerValorTotalInventario') ? $reporte->obtenerValorTotalInventario() : 0;
+            $valorRealHoy = method_exists($reporte, 'obtenerValorRealProductos') ? $reporte->obtenerValorRealProductos() : 0;
+            $totalPedidos = method_exists($reporte, 'obtenerTotalPedidosHoy') ? $reporte->obtenerTotalPedidosHoy() : 0;
 
-        // Total de ventas del día
-        $totalPedidos = $reporte->obtenerTotalPedidosHoy();
+            // Carga de Clientes y Facturas
+            $totalClientes = method_exists($reporte, 'obtenerTotalClientes') ? $reporte->obtenerTotalClientes() : 0;
+            $totalFacturas = method_exists($reporte, 'obtenerTotalFacturas') ? $reporte->obtenerTotalFacturas() : 0;
 
-        // --- TABLAS Y ALERTAS ---
-        // Productos más vendidos para el gráfico o tabla
-        $productosTop = $reporte->obtenerProductosMasVendidos();
+            // Listados de Tablas
+            $productosTop = method_exists($reporte, 'obtenerProductosMasVendidos') ? $reporte->obtenerProductosMasVendidos() : null;
+            $datosVencimiento = method_exists($reporte, 'obtenerInventarioConFechas') ? $reporte->obtenerInventarioConFechas() : null;
+        }
 
-        // Datos para la tabla de vencimientos
-        $datosVencimiento = $reporte->obtenerInventarioConFechas();
-
-        // Alertas de productos con stock bajo (Nueva función para el Dashboard)
-        $alertasStock = $reporte->obtenerProductosBajoStock();
-
-        // Finalmente, cargamos la vista que usará todas estas variables
-        include '../view/gestionInformes.php';
+        // 3. Definimos el título e incluimos la vista de manera limpia
+        $tituloPagina = "Dashboard de Informes Administrativos";
+        include __DIR__ . '/../view/gestionInformes.php';
     }
 }
 
+// --- EJECUCIÓN AUTOMÁTICA DEL FLUJO MVC ---
 require_once __DIR__ . '/../config/connection.php';
-
 $db = ConnectionDB::connection();
 
 if ($db) {
-    $reportController = new ReportController($db);
-    $reportController->index();
+    // Si el modelo no se ha cargado en el index global, lo incluimos de forma relativa
+    if (!class_exists('Report') && file_exists(__DIR__ . '/../model/report.php')) {
+        require_once __DIR__ . '/../model/report.php';
+    }
+    $controller = new ReportController($db);
+    $controller->index();
 } else {
-    echo "Error: La conexión estática ConnectionDB::connection() devolvió null.";
+    echo "Error crítico: No se pudo establecer la conexión a la base de datos.";
 }
-require_once '../view/gestionInformes.php';
